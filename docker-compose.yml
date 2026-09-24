@@ -1,0 +1,23 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: redis-clone-server:local
+    container_name: redis_clone_server
+    ports:
+      - "50051:50051"
+    volumes:
+      - redis_data:/data
+    environment:
+      - DATA_DIR=/data
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+
+volumes:
+  redis_data:
+    name: redis_clone_aof_rdb
