@@ -1,5 +1,5 @@
 
-.PHONEY: up down test lint build
+.PHONEY: up down test lint build cli
 
 up:
 	docker-compose up -d --build
@@ -9,3 +9,5 @@ test:
 	go test -v -race ./...
 lint:
 	golangci-lint run
+cli:
+	go run ./cmd/cli/main.go

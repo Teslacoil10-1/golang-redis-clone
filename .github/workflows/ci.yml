@@ -1,0 +1,34 @@
+name: pipelines/ci
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  test-and-lint:
+    name: build, lint, and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout src code
+        uses: actions/checkout@v4
+
+      - name: setup go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.27"
+          cache: false
+
+      - name: exec golangci-lint
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: latest
+          args: --timeout=5m
+
+      - name: run tests (auto detect race conditions)
+        run: go test -v -race ./...
+
+      - name: verify server build
+        run: go build -ldflags="-s -w" -o build-test ./cmd/server

@@ -3,7 +3,8 @@ package grpcapi
 import (
 	"context"
 
-	"redis-clone/internal/store"
+	bloomfilter "redis-clone/internal/store"
+	store "redis-clone/internal/store"
 	"redis-clone/proto/pb"
 
 	"google.golang.org/grpc/codes"
@@ -13,6 +14,7 @@ import (
 type Server struct {
 	pb.UnimplementedKeyValueStoreServer
 	DB *store.Store
+	BF *bloomfilter.Filter
 }
 
 func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, error) {
@@ -44,4 +46,20 @@ func (s *Server) Delete(ctx context.Context, req *pb.DeleteRequest) (*pb.DeleteR
 
 	deleted, _ := s.DB.Delete(req.Key)
 	return &pb.DeleteResponse{Success: deleted}, nil
+}
+
+func (s *Server) BFAdd(ctx context.Context, req *pb.BFAddRequest) (*pb.BFAddResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	s.BF.Add(req.Key)
+	return &pb.BFAddResponse{Success: true}, nil
+}
+
+func (s *Server) BFExists(ctx context.Context, req *pb.BFExistsRequest) (*pb.BFExistsResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	exists := s.BF.Exists(req.Key)
+	return &pb.BFExistsResponse{Exists: exists}, nil
 }

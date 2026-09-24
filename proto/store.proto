@@ -6,6 +6,8 @@ service KeyValueStore {
   rpc Set(SetRequest) returns (SetResponse);
   rpc Get(GetRequest) returns (GetResponse);
   rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc BFAdd(BFAddRequest) returns (BFAddResponse);
+  rpc BFExists(BFExistsRequest) returns (BFExistsResponse);
 }
 
 message SetRequest {
@@ -32,5 +34,21 @@ message DeleteRequest {
 
 message DeleteResponse {
   bool success = 1;
+}
+
+message BFAddRequest {
+  string key = 1;
+}
+
+message BFAddResponse {
+  string success = 1;
+}
+
+message BFAddRequest {
+  string key = 1;
+}
+
+message BFExistsResponse {
+  bool exists = 1;
 }
 
