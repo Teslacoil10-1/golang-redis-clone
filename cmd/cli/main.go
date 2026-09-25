@@ -1,16 +1,15 @@
 package main
 
 import (
-	"bufio"
 	"context"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 	"time"
 
 	"redis-clone/proto/pb"
 
+	"github.com/chzyer/readline"
 	"github.com/google/shlex"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -19,16 +18,25 @@ import (
 func main() {
 	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		log.Fatalf("failed to dial grpc at port :50051: %v", err)
+		log.Printf("failed to dial grpc at port :50051: %v", err)
+		return
 	}
 	defer conn.Close()
 
 	c := pb.NewKeyValueStoreClient(conn)
-	reader := bufio.NewReader(os.Stdin)
+	rl, err := readline.New("localhost:500051> ")
+	if err != nil {
+		log.Printf("failed to create new readline ERROR: %v", err)
+		return
+	}
 
+	defer rl.Close()
 	for {
 		fmt.Print("localhost:50051> ")
-		input, _ := reader.ReadString('\n')
+		input, err := rl.Readline()
+		if err != nil {
+			break
+		}
 
 		tokens, err := shlex.Split(input)
 		if err != nil {
