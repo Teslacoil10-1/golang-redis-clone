@@ -3,8 +3,8 @@ package grpcapi
 import (
 	"context"
 
-	bloomfilter "redis-clone/internal/store"
-	store "redis-clone/internal/store"
+	"redis-clone/internal/bloomfilter"
+	"redis-clone/internal/store"
 	"redis-clone/proto/pb"
 
 	"google.golang.org/grpc/codes"

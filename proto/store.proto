@@ -41,10 +41,10 @@ message BFAddRequest {
 }
 
 message BFAddResponse {
-  string success = 1;
+  bool success = 1;
 }
 
-message BFAddRequest {
+message BFExistsRequest {
   string key = 1;
 }
 

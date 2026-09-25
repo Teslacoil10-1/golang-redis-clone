@@ -19,9 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	KeyValueStore_Set_FullMethodName    = "/KeyValueStore/Set"
-	KeyValueStore_Get_FullMethodName    = "/KeyValueStore/Get"
-	KeyValueStore_Delete_FullMethodName = "/KeyValueStore/Delete"
+	KeyValueStore_Set_FullMethodName      = "/KeyValueStore/Set"
+	KeyValueStore_Get_FullMethodName      = "/KeyValueStore/Get"
+	KeyValueStore_Delete_FullMethodName   = "/KeyValueStore/Delete"
+	KeyValueStore_BFAdd_FullMethodName    = "/KeyValueStore/BFAdd"
+	KeyValueStore_BFExists_FullMethodName = "/KeyValueStore/BFExists"
 )
 
 // KeyValueStoreClient is the client API for KeyValueStore service.
@@ -31,6 +33,8 @@ type KeyValueStoreClient interface {
 	Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*SetResponse, error)
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
+	BFAdd(ctx context.Context, in *BFAddRequest, opts ...grpc.CallOption) (*BFAddResponse, error)
+	BFExists(ctx context.Context, in *BFExistsRequest, opts ...grpc.CallOption) (*BFExistsResponse, error)
 }
 
 type keyValueStoreClient struct {
@@ -71,17 +75,38 @@ func (c *keyValueStoreClient) Delete(ctx context.Context, in *DeleteRequest, opt
 	return out, nil
 }
 
+func (c *keyValueStoreClient) BFAdd(ctx context.Context, in *BFAddRequest, opts ...grpc.CallOption) (*BFAddResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BFAddResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_BFAdd_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) BFExists(ctx context.Context, in *BFExistsRequest, opts ...grpc.CallOption) (*BFExistsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BFExistsResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_BFExists_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // KeyValueStoreServer is the server API for KeyValueStore service.
-// All implementations must embed UnimplementedKeyValueStoreServer
+// All implementations should embed UnimplementedKeyValueStoreServer
 // for forward compatibility.
 type KeyValueStoreServer interface {
 	Set(context.Context, *SetRequest) (*SetResponse, error)
 	Get(context.Context, *GetRequest) (*GetResponse, error)
 	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
-	mustEmbedUnimplementedKeyValueStoreServer()
+	BFAdd(context.Context, *BFAddRequest) (*BFAddResponse, error)
+	BFExists(context.Context, *BFExistsRequest) (*BFExistsResponse, error)
 }
 
-// UnimplementedKeyValueStoreServer must be embedded to have
+// UnimplementedKeyValueStoreServer should be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
@@ -97,8 +122,13 @@ func (UnimplementedKeyValueStoreServer) Get(context.Context, *GetRequest) (*GetR
 func (UnimplementedKeyValueStoreServer) Delete(context.Context, *DeleteRequest) (*DeleteResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedKeyValueStoreServer) mustEmbedUnimplementedKeyValueStoreServer() {}
-func (UnimplementedKeyValueStoreServer) testEmbeddedByValue()                       {}
+func (UnimplementedKeyValueStoreServer) BFAdd(context.Context, *BFAddRequest) (*BFAddResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method BFAdd not implemented")
+}
+func (UnimplementedKeyValueStoreServer) BFExists(context.Context, *BFExistsRequest) (*BFExistsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method BFExists not implemented")
+}
+func (UnimplementedKeyValueStoreServer) testEmbeddedByValue() {}
 
 // UnsafeKeyValueStoreServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to KeyValueStoreServer will
@@ -172,6 +202,42 @@ func _KeyValueStore_Delete_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KeyValueStore_BFAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BFAddRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).BFAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_BFAdd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).BFAdd(ctx, req.(*BFAddRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_BFExists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BFExistsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).BFExists(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_BFExists_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).BFExists(ctx, req.(*BFExistsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // KeyValueStore_ServiceDesc is the grpc.ServiceDesc for KeyValueStore service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,6 +256,14 @@ var KeyValueStore_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _KeyValueStore_Delete_Handler,
+		},
+		{
+			MethodName: "BFAdd",
+			Handler:    _KeyValueStore_BFAdd_Handler,
+		},
+		{
+			MethodName: "BFExists",
+			Handler:    _KeyValueStore_BFExists_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

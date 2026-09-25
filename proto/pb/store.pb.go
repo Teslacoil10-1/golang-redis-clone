@@ -301,6 +301,182 @@ func (x *DeleteResponse) GetSuccess() bool {
 	return false
 }
 
+type BFAddRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BFAddRequest) Reset() {
+	*x = BFAddRequest{}
+	mi := &file_store_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BFAddRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BFAddRequest) ProtoMessage() {}
+
+func (x *BFAddRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BFAddRequest.ProtoReflect.Descriptor instead.
+func (*BFAddRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *BFAddRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type BFAddResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BFAddResponse) Reset() {
+	*x = BFAddResponse{}
+	mi := &file_store_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BFAddResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BFAddResponse) ProtoMessage() {}
+
+func (x *BFAddResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BFAddResponse.ProtoReflect.Descriptor instead.
+func (*BFAddResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *BFAddResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type BFExistsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BFExistsRequest) Reset() {
+	*x = BFExistsRequest{}
+	mi := &file_store_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BFExistsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BFExistsRequest) ProtoMessage() {}
+
+func (x *BFExistsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BFExistsRequest.ProtoReflect.Descriptor instead.
+func (*BFExistsRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *BFExistsRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type BFExistsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Exists        bool                   `protobuf:"varint,1,opt,name=exists,proto3" json:"exists,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BFExistsResponse) Reset() {
+	*x = BFExistsResponse{}
+	mi := &file_store_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BFExistsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BFExistsResponse) ProtoMessage() {}
+
+func (x *BFExistsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BFExistsResponse.ProtoReflect.Descriptor instead.
+func (*BFExistsResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *BFExistsResponse) GetExists() bool {
+	if x != nil {
+		return x.Exists
+	}
+	return false
+}
+
 var File_store_proto protoreflect.FileDescriptor
 
 const file_store_proto_rawDesc = "" +
@@ -321,11 +497,21 @@ const file_store_proto_rawDesc = "" +
 	"\rDeleteRequest\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\"*\n" +
 	"\x0eDeleteResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2~\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\" \n" +
+	"\fBFAddRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\")\n" +
+	"\rBFAddResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"#\n" +
+	"\x0fBFExistsRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\"*\n" +
+	"\x10BFExistsResponse\x12\x16\n" +
+	"\x06exists\x18\x01 \x01(\bR\x06exists2\xd7\x01\n" +
 	"\rKeyValueStore\x12 \n" +
 	"\x03Set\x12\v.SetRequest\x1a\f.SetResponse\x12 \n" +
 	"\x03Get\x12\v.GetRequest\x1a\f.GetResponse\x12)\n" +
-	"\x06Delete\x12\x0e.DeleteRequest\x1a\x0f.DeleteResponseB\x06Z\x04./pbb\x06proto3"
+	"\x06Delete\x12\x0e.DeleteRequest\x1a\x0f.DeleteResponse\x12&\n" +
+	"\x05BFAdd\x12\r.BFAddRequest\x1a\x0e.BFAddResponse\x12/\n" +
+	"\bBFExists\x12\x10.BFExistsRequest\x1a\x11.BFExistsResponseB\x06Z\x04./pbb\x06proto3"
 
 var (
 	file_store_proto_rawDescOnce sync.Once
@@ -339,24 +525,32 @@ func file_store_proto_rawDescGZIP() []byte {
 	return file_store_proto_rawDescData
 }
 
-var file_store_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_store_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_store_proto_goTypes = []any{
-	(*SetRequest)(nil),     // 0: SetRequest
-	(*SetResponse)(nil),    // 1: SetResponse
-	(*GetRequest)(nil),     // 2: GetRequest
-	(*GetResponse)(nil),    // 3: GetResponse
-	(*DeleteRequest)(nil),  // 4: DeleteRequest
-	(*DeleteResponse)(nil), // 5: DeleteResponse
+	(*SetRequest)(nil),       // 0: SetRequest
+	(*SetResponse)(nil),      // 1: SetResponse
+	(*GetRequest)(nil),       // 2: GetRequest
+	(*GetResponse)(nil),      // 3: GetResponse
+	(*DeleteRequest)(nil),    // 4: DeleteRequest
+	(*DeleteResponse)(nil),   // 5: DeleteResponse
+	(*BFAddRequest)(nil),     // 6: BFAddRequest
+	(*BFAddResponse)(nil),    // 7: BFAddResponse
+	(*BFExistsRequest)(nil),  // 8: BFExistsRequest
+	(*BFExistsResponse)(nil), // 9: BFExistsResponse
 }
 var file_store_proto_depIdxs = []int32{
 	0, // 0: KeyValueStore.Set:input_type -> SetRequest
 	2, // 1: KeyValueStore.Get:input_type -> GetRequest
 	4, // 2: KeyValueStore.Delete:input_type -> DeleteRequest
-	1, // 3: KeyValueStore.Set:output_type -> SetResponse
-	3, // 4: KeyValueStore.Get:output_type -> GetResponse
-	5, // 5: KeyValueStore.Delete:output_type -> DeleteResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	6, // 3: KeyValueStore.BFAdd:input_type -> BFAddRequest
+	8, // 4: KeyValueStore.BFExists:input_type -> BFExistsRequest
+	1, // 5: KeyValueStore.Set:output_type -> SetResponse
+	3, // 6: KeyValueStore.Get:output_type -> GetResponse
+	5, // 7: KeyValueStore.Delete:output_type -> DeleteResponse
+	7, // 8: KeyValueStore.BFAdd:output_type -> BFAddResponse
+	9, // 9: KeyValueStore.BFExists:output_type -> BFExistsResponse
+	5, // [5:10] is the sub-list for method output_type
+	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -373,7 +567,7 @@ func file_store_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_store_proto_rawDesc), len(file_store_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
