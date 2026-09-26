@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	KeyValueStore_Set_FullMethodName      = "/KeyValueStore/Set"
-	KeyValueStore_Get_FullMethodName      = "/KeyValueStore/Get"
-	KeyValueStore_Delete_FullMethodName   = "/KeyValueStore/Delete"
-	KeyValueStore_BFAdd_FullMethodName    = "/KeyValueStore/BFAdd"
-	KeyValueStore_BFExists_FullMethodName = "/KeyValueStore/BFExists"
+	KeyValueStore_Set_FullMethodName       = "/KeyValueStore/Set"
+	KeyValueStore_Get_FullMethodName       = "/KeyValueStore/Get"
+	KeyValueStore_Delete_FullMethodName    = "/KeyValueStore/Delete"
+	KeyValueStore_BFAdd_FullMethodName     = "/KeyValueStore/BFAdd"
+	KeyValueStore_BFExists_FullMethodName  = "/KeyValueStore/BFExists"
+	KeyValueStore_BGRewrite_FullMethodName = "/KeyValueStore/BGRewrite"
 )
 
 // KeyValueStoreClient is the client API for KeyValueStore service.
@@ -35,6 +36,7 @@ type KeyValueStoreClient interface {
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
 	BFAdd(ctx context.Context, in *BFAddRequest, opts ...grpc.CallOption) (*BFAddResponse, error)
 	BFExists(ctx context.Context, in *BFExistsRequest, opts ...grpc.CallOption) (*BFExistsResponse, error)
+	BGRewrite(ctx context.Context, in *BGRewriteRequest, opts ...grpc.CallOption) (*BGRewriteResponse, error)
 }
 
 type keyValueStoreClient struct {
@@ -95,6 +97,16 @@ func (c *keyValueStoreClient) BFExists(ctx context.Context, in *BFExistsRequest,
 	return out, nil
 }
 
+func (c *keyValueStoreClient) BGRewrite(ctx context.Context, in *BGRewriteRequest, opts ...grpc.CallOption) (*BGRewriteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BGRewriteResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_BGRewrite_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // KeyValueStoreServer is the server API for KeyValueStore service.
 // All implementations should embed UnimplementedKeyValueStoreServer
 // for forward compatibility.
@@ -104,6 +116,7 @@ type KeyValueStoreServer interface {
 	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
 	BFAdd(context.Context, *BFAddRequest) (*BFAddResponse, error)
 	BFExists(context.Context, *BFExistsRequest) (*BFExistsResponse, error)
+	BGRewrite(context.Context, *BGRewriteRequest) (*BGRewriteResponse, error)
 }
 
 // UnimplementedKeyValueStoreServer should be embedded to have
@@ -127,6 +140,9 @@ func (UnimplementedKeyValueStoreServer) BFAdd(context.Context, *BFAddRequest) (*
 }
 func (UnimplementedKeyValueStoreServer) BFExists(context.Context, *BFExistsRequest) (*BFExistsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method BFExists not implemented")
+}
+func (UnimplementedKeyValueStoreServer) BGRewrite(context.Context, *BGRewriteRequest) (*BGRewriteResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method BGRewrite not implemented")
 }
 func (UnimplementedKeyValueStoreServer) testEmbeddedByValue() {}
 
@@ -238,6 +254,24 @@ func _KeyValueStore_BFExists_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KeyValueStore_BGRewrite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BGRewriteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).BGRewrite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_BGRewrite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).BGRewrite(ctx, req.(*BGRewriteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // KeyValueStore_ServiceDesc is the grpc.ServiceDesc for KeyValueStore service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -264,6 +298,10 @@ var KeyValueStore_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BFExists",
 			Handler:    _KeyValueStore_BFExists_Handler,
+		},
+		{
+			MethodName: "BGRewrite",
+			Handler:    _KeyValueStore_BGRewrite_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

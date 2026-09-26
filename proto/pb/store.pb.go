@@ -477,6 +477,86 @@ func (x *BFExistsResponse) GetExists() bool {
 	return false
 }
 
+type BGRewriteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BGRewriteRequest) Reset() {
+	*x = BGRewriteRequest{}
+	mi := &file_store_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BGRewriteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BGRewriteRequest) ProtoMessage() {}
+
+func (x *BGRewriteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BGRewriteRequest.ProtoReflect.Descriptor instead.
+func (*BGRewriteRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{10}
+}
+
+type BGRewriteResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BGRewriteResponse) Reset() {
+	*x = BGRewriteResponse{}
+	mi := &file_store_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BGRewriteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BGRewriteResponse) ProtoMessage() {}
+
+func (x *BGRewriteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BGRewriteResponse.ProtoReflect.Descriptor instead.
+func (*BGRewriteResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *BGRewriteResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
 var File_store_proto protoreflect.FileDescriptor
 
 const file_store_proto_rawDesc = "" +
@@ -505,13 +585,17 @@ const file_store_proto_rawDesc = "" +
 	"\x0fBFExistsRequest\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\"*\n" +
 	"\x10BFExistsResponse\x12\x16\n" +
-	"\x06exists\x18\x01 \x01(\bR\x06exists2\xd7\x01\n" +
+	"\x06exists\x18\x01 \x01(\bR\x06exists\"\x12\n" +
+	"\x10BGRewriteRequest\"+\n" +
+	"\x11BGRewriteResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status2\x8b\x02\n" +
 	"\rKeyValueStore\x12 \n" +
 	"\x03Set\x12\v.SetRequest\x1a\f.SetResponse\x12 \n" +
 	"\x03Get\x12\v.GetRequest\x1a\f.GetResponse\x12)\n" +
 	"\x06Delete\x12\x0e.DeleteRequest\x1a\x0f.DeleteResponse\x12&\n" +
 	"\x05BFAdd\x12\r.BFAddRequest\x1a\x0e.BFAddResponse\x12/\n" +
-	"\bBFExists\x12\x10.BFExistsRequest\x1a\x11.BFExistsResponseB\x06Z\x04./pbb\x06proto3"
+	"\bBFExists\x12\x10.BFExistsRequest\x1a\x11.BFExistsResponse\x122\n" +
+	"\tBGRewrite\x12\x11.BGRewriteRequest\x1a\x12.BGRewriteResponseB\x06Z\x04./pbb\x06proto3"
 
 var (
 	file_store_proto_rawDescOnce sync.Once
@@ -525,35 +609,39 @@ func file_store_proto_rawDescGZIP() []byte {
 	return file_store_proto_rawDescData
 }
 
-var file_store_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_store_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_store_proto_goTypes = []any{
-	(*SetRequest)(nil),       // 0: SetRequest
-	(*SetResponse)(nil),      // 1: SetResponse
-	(*GetRequest)(nil),       // 2: GetRequest
-	(*GetResponse)(nil),      // 3: GetResponse
-	(*DeleteRequest)(nil),    // 4: DeleteRequest
-	(*DeleteResponse)(nil),   // 5: DeleteResponse
-	(*BFAddRequest)(nil),     // 6: BFAddRequest
-	(*BFAddResponse)(nil),    // 7: BFAddResponse
-	(*BFExistsRequest)(nil),  // 8: BFExistsRequest
-	(*BFExistsResponse)(nil), // 9: BFExistsResponse
+	(*SetRequest)(nil),        // 0: SetRequest
+	(*SetResponse)(nil),       // 1: SetResponse
+	(*GetRequest)(nil),        // 2: GetRequest
+	(*GetResponse)(nil),       // 3: GetResponse
+	(*DeleteRequest)(nil),     // 4: DeleteRequest
+	(*DeleteResponse)(nil),    // 5: DeleteResponse
+	(*BFAddRequest)(nil),      // 6: BFAddRequest
+	(*BFAddResponse)(nil),     // 7: BFAddResponse
+	(*BFExistsRequest)(nil),   // 8: BFExistsRequest
+	(*BFExistsResponse)(nil),  // 9: BFExistsResponse
+	(*BGRewriteRequest)(nil),  // 10: BGRewriteRequest
+	(*BGRewriteResponse)(nil), // 11: BGRewriteResponse
 }
 var file_store_proto_depIdxs = []int32{
-	0, // 0: KeyValueStore.Set:input_type -> SetRequest
-	2, // 1: KeyValueStore.Get:input_type -> GetRequest
-	4, // 2: KeyValueStore.Delete:input_type -> DeleteRequest
-	6, // 3: KeyValueStore.BFAdd:input_type -> BFAddRequest
-	8, // 4: KeyValueStore.BFExists:input_type -> BFExistsRequest
-	1, // 5: KeyValueStore.Set:output_type -> SetResponse
-	3, // 6: KeyValueStore.Get:output_type -> GetResponse
-	5, // 7: KeyValueStore.Delete:output_type -> DeleteResponse
-	7, // 8: KeyValueStore.BFAdd:output_type -> BFAddResponse
-	9, // 9: KeyValueStore.BFExists:output_type -> BFExistsResponse
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: KeyValueStore.Set:input_type -> SetRequest
+	2,  // 1: KeyValueStore.Get:input_type -> GetRequest
+	4,  // 2: KeyValueStore.Delete:input_type -> DeleteRequest
+	6,  // 3: KeyValueStore.BFAdd:input_type -> BFAddRequest
+	8,  // 4: KeyValueStore.BFExists:input_type -> BFExistsRequest
+	10, // 5: KeyValueStore.BGRewrite:input_type -> BGRewriteRequest
+	1,  // 6: KeyValueStore.Set:output_type -> SetResponse
+	3,  // 7: KeyValueStore.Get:output_type -> GetResponse
+	5,  // 8: KeyValueStore.Delete:output_type -> DeleteResponse
+	7,  // 9: KeyValueStore.BFAdd:output_type -> BFAddResponse
+	9,  // 10: KeyValueStore.BFExists:output_type -> BFExistsResponse
+	11, // 11: KeyValueStore.BGRewrite:output_type -> BGRewriteResponse
+	6,  // [6:12] is the sub-list for method output_type
+	0,  // [0:6] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_store_proto_init() }
@@ -567,7 +655,7 @@ func file_store_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_store_proto_rawDesc), len(file_store_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

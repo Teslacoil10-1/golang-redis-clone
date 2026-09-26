@@ -76,3 +76,12 @@ func (s *Server) BFExists(ctx context.Context, req *pb.BFExistsRequest) (*pb.BFE
 
 	return &pb.BFExistsResponse{Exists: exists}, nil
 }
+
+func (s *Server) BGRewrite(ctx context.Context, req *pb.BGRewriteRequest) (*pb.BGRewriteResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+
+	aof.TriggerRewrite()
+	return &pb.BGRewriteResponse{Status: "Background append only file rewriting started"}, nil
+}

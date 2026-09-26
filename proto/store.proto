@@ -8,6 +8,7 @@ service KeyValueStore {
   rpc Delete(DeleteRequest) returns (DeleteResponse);
   rpc BFAdd(BFAddRequest) returns (BFAddResponse);
   rpc BFExists(BFExistsRequest) returns (BFExistsResponse);
+  rpc BGRewrite(BGRewriteRequest) returns (BGRewriteResponse);
 }
 
 message SetRequest {
@@ -52,3 +53,7 @@ message BFExistsResponse {
   bool exists = 1;
 }
 
+message BGRewriteRequest {}
+message BGRewriteResponse {
+  string status = 1;
+}

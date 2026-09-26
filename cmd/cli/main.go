@@ -121,7 +121,15 @@ func main() {
 				continue
 			}
 			log.Printf("%v", resp)
-
+		case "BGREWRITEAOF":
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+			resp, err := c.BGRewrite(ctx, &pb.BGRewriteRequest{})
+			cancel()
+			if err != nil {
+				log.Printf("BGREWRITEAOF failed: %v", err)
+				continue
+			}
+			log.Printf("%v", resp.Status)
 		default:
 			log.Printf("ERR: Unknown command %q", command)
 		}
