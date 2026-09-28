@@ -13,7 +13,7 @@
   <p align="center">
     a redis clone wrote in rust and go
     <br />
-    <a href="https://github.com/Teslacoil10-1/golang-redis-clone/docs"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Teslacoil10-1/golang-redis-clone/tree/main/docs"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://github.com/Teslacoil10-1/golang-redis-clone/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
