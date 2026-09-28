@@ -70,7 +70,7 @@ a redis clone wrote in rust and go
 ### Installation
 
 ```
-git clone [https://github.com/Teslacoil10-1/golang-redis-clone.git](https://github.com/Teslacoil10-1/golang-redis-clone.git)
+git clone https://github.com/Teslacoil10-1/golang-redis-clone
 
 cd golang-redis-clone
 make up
