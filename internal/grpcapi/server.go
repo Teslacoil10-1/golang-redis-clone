@@ -25,7 +25,7 @@ func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, 
 
 	s.DB.Set(req.Key, req.Value)
 
-	aof.RecordCommand("SET " + req.Key + req.Value)
+	aof.RecordCommand("SET " + req.Key + " " + req.Value)
 
 	return &pb.SetResponse{Success: true}, nil
 }

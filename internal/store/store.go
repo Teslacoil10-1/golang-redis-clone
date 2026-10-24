@@ -1,3 +1,4 @@
+// this package stores things in a memory store
 package store
 
 import (

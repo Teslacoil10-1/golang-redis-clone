@@ -8,6 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"redis-clone/internal/aof"
 	"redis-clone/internal/bloomfilter"
 	"redis-clone/internal/grpcapi"
 	"redis-clone/internal/store"
@@ -21,6 +22,9 @@ func main() {
 	defer stop()
 	rdb := store.CreateStore()
 	bf := bloomfilter.New(100000, 0.01)
+
+	aof.ReplayState(rdb)
+	aof.StartWorker()
 
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
