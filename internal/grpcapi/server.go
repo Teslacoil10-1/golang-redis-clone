@@ -1,7 +1,10 @@
+// Package grpcapi
 package grpcapi
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"redis-clone/internal/aof"
 	"redis-clone/internal/bloomfilter"
@@ -23,9 +26,17 @@ func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, 
 		return nil, err
 	}
 
-	s.DB.Set(req.Key, req.Value)
+	var cmd string
+	if req.Ttl > 0 {
+		expiresAt := time.Now().UnixNano() + (req.Ttl * int64(time.Millisecond))
+		s.DB.SetWithTTL(req.Key, req.Value, expiresAt)
+		cmd = fmt.Sprintf("SET %s %s %d", req.Key, req.Value, expiresAt)
+	} else {
+		s.DB.Set(req.Key, req.Value)
+		cmd = fmt.Sprintf("SET %s %s", req.Key, req.Value)
+	}
 
-	aof.RecordCommand("SET " + req.Key + " " + req.Value)
+	aof.RecordCommand(cmd)
 
 	return &pb.SetResponse{Success: true}, nil
 }
@@ -48,7 +59,7 @@ func (s *Server) Delete(ctx context.Context, req *pb.DeleteRequest) (*pb.DeleteR
 		return nil, err
 	}
 
-	deleted, _ := s.DB.Delete(req.Key)
+	deleted := s.DB.Delete(req.Key)
 
 	aof.RecordCommand("DELETE " + req.Key)
 

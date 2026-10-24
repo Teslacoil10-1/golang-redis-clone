@@ -1,43 +1,126 @@
-// this package stores things in a memory store
+// Package store
 package store
 
 import (
+	"hash/fnv"
 	"sync"
+	"time"
 )
 
-type Store struct {
-	data map[string]string
+type Value struct {
+	Data      string
+	ExpiresAt int64
+}
+
+const shardCount = 32
+
+type Shard struct {
+	data map[string]Value
 	mu   sync.RWMutex
 }
 
+func (s *Shard) Set(key, value string) {
+	s.mu.Lock()
+	s.data[key] = Value{
+		Data:      value,
+		ExpiresAt: 0,
+	}
+	s.mu.Unlock()
+}
+
+func (s *Shard) SetWithTTL(key, value string, expiresAt int64) {
+	s.mu.Lock()
+	s.data[key] = Value{
+		Data:      value,
+		ExpiresAt: expiresAt,
+	}
+	s.mu.Unlock()
+}
+
+func (s *Shard) Get(key string) (string, bool) {
+	s.mu.RLock()
+	val, ok := s.data[key]
+	s.mu.RUnlock()
+
+	if !ok {
+		return "", false
+	}
+
+	if val.ExpiresAt > 0 && time.Now().UnixNano() > val.ExpiresAt {
+		s.Delete(key)
+		return "", false
+	}
+
+	return val.Data, true
+}
+
+func (s *Shard) Delete(key string) bool {
+	s.mu.Lock()
+	_, exists := s.data[key]
+	if exists {
+		delete(s.data, key)
+	}
+	s.mu.Unlock()
+	return exists
+}
+
+type Store struct {
+	shards    []*Shard
+	shardMask uint32
+}
+
 func CreateStore() *Store {
-	return &Store{
-		data: make(map[string]string),
+	store := &Store{
+		shards:    make([]*Shard, shardCount),
+		shardMask: uint32(shardCount - 1),
 	}
-}
-
-func (store *Store) Set(key, value string) {
-	store.mu.Lock()
-	defer store.mu.Unlock()
-	store.data[key] = value
-}
-
-func (store *Store) Get(key string) (string, bool) {
-	store.mu.RLock()
-	defer store.mu.RUnlock()
-	val, ok := store.data[key]
-	return val, ok
-}
-
-func (store *Store) Delete(key string) (bool, error) {
-	store.mu.Lock()
-	defer store.mu.Unlock()
-
-	if _, exists := store.data[key]; !exists {
-		return false, nil
+	for i := range shardCount {
+		store.shards[i] = &Shard{
+			data: make(map[string]Value),
+		}
 	}
+	return store
+}
 
-	delete(store.data, key)
+func (s *Store) getShard(key string) *Shard {
+	h := fnv.New32a()
+	h.Write([]byte(key))
+	return s.shards[h.Sum32()&s.shardMask]
+}
 
-	return true, nil
+func (s *Store) Set(key, value string) {
+	s.getShard(key).Set(key, value)
+}
+
+func (s *Store) SetWithTTL(key, value string, expiresAt int64) {
+	s.getShard(key).SetWithTTL(key, value, expiresAt)
+}
+
+func (s *Store) Get(key string) (string, bool) {
+	return s.getShard(key).Get(key)
+}
+
+func (s *Store) Delete(key string) bool {
+	return s.getShard(key).Delete(key)
+}
+
+func (store *Store) StartGarbageCollector() {
+	go func() {
+		ticker := time.NewTicker(100 * time.Millisecond)
+		defer ticker.Stop()
+
+		for range ticker.C {
+			now := time.Now().UnixNano()
+
+			for _, shard := range store.shards {
+				shard.mu.Lock()
+				for key, val := range shard.data {
+					if val.ExpiresAt > 0 && now > val.ExpiresAt {
+						delete(shard.data, key)
+					}
+				}
+				shard.mu.Unlock()
+			}
+		}
+	}()
 }

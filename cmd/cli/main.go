@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strconv"
 	"strings"
 	"time"
 
@@ -53,13 +54,23 @@ func main() {
 		switch command {
 		case "SET":
 			if len(args) < 2 {
-				log.Println("error USAGE: SET <key> <value>")
+				log.Println("error USAGE: SET <key> <value> [ttl]")
 				continue
+			}
+
+			var ttl int64
+			if len(args) == 3 {
+				parsedTTL, err := strconv.ParseInt(args[2], 10, 64)
+				if err != nil {
+					log.Println("invalid ttl must of type int (milliseconds)")
+					continue
+				}
+				ttl = parsedTTL
 			}
 
 			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 
-			_, err = c.Set(ctx, &pb.SetRequest{Key: args[0], Value: args[1]})
+			_, err = c.Set(ctx, &pb.SetRequest{Key: args[0], Value: args[1], Ttl: ttl})
 			cancel()
 			if err != nil {
 				log.Printf("SET failed: %v\n", err)

@@ -25,6 +25,7 @@ type SetRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
 	Value         string                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	Ttl           int64                  `protobuf:"varint,3,opt,name=ttl,proto3" json:"ttl,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -71,6 +72,13 @@ func (x *SetRequest) GetValue() string {
 		return x.Value
 	}
 	return ""
+}
+
+func (x *SetRequest) GetTtl() int64 {
+	if x != nil {
+		return x.Ttl
+	}
+	return 0
 }
 
 type SetResponse struct {
@@ -561,11 +569,12 @@ var File_store_proto protoreflect.FileDescriptor
 
 const file_store_proto_rawDesc = "" +
 	"\n" +
-	"\vstore.proto\"4\n" +
+	"\vstore.proto\"F\n" +
 	"\n" +
 	"SetRequest\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value\"'\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\x12\x10\n" +
+	"\x03ttl\x18\x03 \x01(\x03R\x03ttl\"'\n" +
 	"\vSetResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"\x1e\n" +
 	"\n" +

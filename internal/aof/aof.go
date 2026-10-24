@@ -15,7 +15,9 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+	"time"
 	"unsafe"
 
 	"redis-clone/internal/store"
@@ -71,7 +73,7 @@ func ReplayState(db *store.Store) {
 		for scanner.Scan() {
 			line := scanner.Text()
 
-			parts := strings.SplitN(line, " ", 3)
+			parts := strings.SplitN(line, " ", 4)
 
 			if len(parts) == 0 {
 				continue
@@ -79,8 +81,15 @@ func ReplayState(db *store.Store) {
 
 			switch parts[0] {
 			case "SET":
-				if len(parts) >= 3 {
+				if len(parts) == 3 {
 					db.Set(parts[1], parts[2])
+				} else if len(parts) == 4 {
+					expiresAt, err := strconv.ParseInt(parts[3], 10, 64)
+					if err == nil {
+						if time.Now().UnixNano() < expiresAt {
+							db.SetWithTTL(parts[1], parts[2], expiresAt)
+						}
+					}
 				}
 			case "DELETE":
 				if len(parts) >= 2 {
