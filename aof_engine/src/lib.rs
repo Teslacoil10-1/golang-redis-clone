@@ -94,3 +94,39 @@ pub extern "C" fn trigger_bgrewriteaof() {
         println!("rewrite complete");
     });
 }
+
+#[unsafe(no_mangle)]
+pub extern "C" fn rotate_aof(tmp_path: *const c_char) {
+    let c_str = unsafe {
+        assert!(!tmp_path.is_null());
+        CStr::from_ptr(tmp_path)
+    };
+
+    if let Ok(tmp_file_str) = c_str.to_str() {
+        let engine_mu = init_engine();
+        let mut engine = engine_mu.lock().unwrap();
+        
+        let _ = engine.buf.flush();
+        
+        let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis();
+        let new_base = format!("{}/appendonly.{}.base.aof", engine.dir, ts);
+        let new_incr = format!("{}/appendonly.{}.incr.aof", engine.dir, ts);
+        
+        if let Err(e) = fs::rename(tmp_file_str, &new_base) {
+            eprintln!("AOF Rotation Error: Failed to rename temp file: {}", e);
+            return;
+        }
+        
+        let file = OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(&new_incr)
+            .unwrap();
+        
+        engine.buf = BufWriter::with_capacity(8192, file);
+        engine.manifest.base_file = Some(new_base.clone());
+        engine.manifest.active_incr = new_incr.clone();
+        
+        println!("AOF rewrite complete. Base: {} | Incr: {}", new_base, new_incr);
+    }
+}

@@ -6,12 +6,13 @@ package aof
 #include <stdlib.h>
 
 extern void write_to_aof(const char* command);
-extern void trigger_bgrewriteaof();
+extern void rotate_aof(const char* tmp_path);
 */
 import "C"
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -39,8 +40,28 @@ func RecordCommand(cmd string) {
 	cmdChan <- cmd
 }
 
-func TriggerRewrite() {
-	C.trigger_bgrewriteaof()
+func TriggerRewrite(db *store.Store) error {
+	dir := "/data/appendonlydir"
+
+	tmpPath := filepath.Join(dir, fmt.Sprintf("temp-%d.base.aof", time.Now().UnixNano()))
+
+	f, err := os.Create(tmpPath)
+	if err != nil {
+		return err
+	}
+
+	if err := db.DumpState(f); err != nil {
+		f.Close()
+		return err
+	}
+	f.Close()
+
+	cTmpPath := C.CString(tmpPath)
+	defer C.free(unsafe.Pointer(cTmpPath))
+
+	C.rotate_aof(cTmpPath)
+
+	return nil
 }
 
 func ReplayState(db *store.Store) {
@@ -98,6 +119,5 @@ func ReplayState(db *store.Store) {
 
 			}
 		}
-
 	}
 }

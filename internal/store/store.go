@@ -3,6 +3,8 @@ package store
 
 import (
 	"hash/fnv"
+	"os"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -123,4 +125,31 @@ func (store *Store) StartGarbageCollector() {
 			}
 		}
 	}()
+}
+
+func (store *Store) DumpState(f *os.File) error {
+	now := time.Now().UnixNano()
+
+	for _, shard := range store.shards {
+		shard.mu.RLock()
+		for key, val := range shard.data {
+			if val.ExpiresAt > 0 && now > val.ExpiresAt {
+				continue
+			}
+
+			var cmd string
+			if val.ExpiresAt > 0 {
+				cmd = "SET " + key + " " + val.Data + " " + strconv.FormatInt(val.ExpiresAt, 10) + "\n"
+			} else {
+				cmd = "SET " + key + " " + val.Data + "\n"
+			}
+
+			if _, err := f.WriteString(cmd); err != nil {
+				shard.mu.RUnlock()
+				return err
+			}
+		}
+		shard.mu.RUnlock()
+	}
+	return nil
 }

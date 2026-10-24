@@ -93,6 +93,10 @@ func (s *Server) BGRewrite(ctx context.Context, req *pb.BGRewriteRequest) (*pb.B
 		return nil, err
 	}
 
-	aof.TriggerRewrite()
-	return &pb.BGRewriteResponse{Status: "Background append only file rewriting started"}, nil
+	err := aof.TriggerRewrite(s.DB)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to trigger rewrite: %v", err)
+	}
+
+	return &pb.BGRewriteResponse{Status: "background aof rewrite successful"}, nil
 }
