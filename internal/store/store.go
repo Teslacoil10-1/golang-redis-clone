@@ -2,6 +2,7 @@
 package store
 
 import (
+	"container/list"
 	"hash/fnv"
 	"os"
 	"strconv"
@@ -14,56 +15,90 @@ type Value struct {
 	ExpiresAt int64
 }
 
-const shardCount = 32
+type entry struct {
+	key   string
+	value Value
+}
+
+const (
+	shardCount     = 32
+	maxKeyPerShard = 1000
+)
 
 type Shard struct {
-	data map[string]Value
-	mu   sync.RWMutex
+	data    map[string]*list.Element
+	lruList *list.List
+	cap     int
+	mu      sync.RWMutex
 }
 
 func (s *Shard) Set(key, value string) {
-	s.mu.Lock()
-	s.data[key] = Value{
-		Data:      value,
-		ExpiresAt: 0,
-	}
-	s.mu.Unlock()
+	s.SetWithTTL(key, value, 0)
 }
 
 func (s *Shard) SetWithTTL(key, value string, expiresAt int64) {
 	s.mu.Lock()
-	s.data[key] = Value{
-		Data:      value,
-		ExpiresAt: expiresAt,
+	defer s.mu.Unlock()
+
+	if el, ok := s.data[key]; ok {
+		s.lruList.MoveToFront(el)
+		el.Value.(*entry).value = Value{Data: value, ExpiresAt: expiresAt}
+		return
 	}
-	s.mu.Unlock()
+
+	el := s.lruList.PushFront(&entry{
+		key:   key,
+		value: Value{Data: value, ExpiresAt: expiresAt},
+	})
+	s.data[key] = el
+
+	if s.lruList.Len() > s.cap {
+		s.evictOldest()
+	}
 }
 
 func (s *Shard) Get(key string) (string, bool) {
-	s.mu.RLock()
-	val, ok := s.data[key]
-	s.mu.RUnlock()
+	s.mu.Lock()
+	defer s.mu.Unlock()
 
+	el, ok := s.data[key]
 	if !ok {
 		return "", false
 	}
 
-	if val.ExpiresAt > 0 && time.Now().UnixNano() > val.ExpiresAt {
-		s.Delete(key)
+	ent := el.Value.(*entry)
+
+	if ent.value.ExpiresAt > 0 && time.Now().UnixNano() > ent.value.ExpiresAt {
+		s.removeElement(el)
 		return "", false
 	}
 
-	return val.Data, true
+	s.lruList.MoveToFront(el)
+	return ent.value.Data, true
 }
 
 func (s *Shard) Delete(key string) bool {
 	s.mu.Lock()
-	_, exists := s.data[key]
-	if exists {
-		delete(s.data, key)
+	defer s.mu.Unlock()
+
+	if el, exists := s.data[key]; exists {
+		s.removeElement(el)
+		return true
 	}
-	s.mu.Unlock()
-	return exists
+	return false
+}
+
+func (s *Shard) evictOldest() {
+	el := s.lruList.Back()
+	if el != nil {
+		s.removeElement(el)
+	}
+}
+
+func (s *Shard) removeElement(el *list.Element) {
+	s.lruList.Remove(el)
+	ent := el.Value.(*entry)
+	delete(s.data, ent.key)
 }
 
 type Store struct {
@@ -78,7 +113,9 @@ func CreateStore() *Store {
 	}
 	for i := range shardCount {
 		store.shards[i] = &Shard{
-			data: make(map[string]Value),
+			data:    make(map[string]*list.Element),
+			lruList: list.New(),
+			cap:     maxKeyPerShard,
 		}
 	}
 	return store
@@ -116,9 +153,10 @@ func (store *Store) StartGarbageCollector() {
 
 			for _, shard := range store.shards {
 				shard.mu.Lock()
-				for key, val := range shard.data {
-					if val.ExpiresAt > 0 && now > val.ExpiresAt {
-						delete(shard.data, key)
+				for _, el := range shard.data {
+					ent := el.Value.(*entry)
+					if ent.value.ExpiresAt > 0 && now > ent.value.ExpiresAt {
+						shard.removeElement(el)
 					}
 				}
 				shard.mu.Unlock()
@@ -132,16 +170,18 @@ func (store *Store) DumpState(f *os.File) error {
 
 	for _, shard := range store.shards {
 		shard.mu.RLock()
-		for key, val := range shard.data {
-			if val.ExpiresAt > 0 && now > val.ExpiresAt {
+		for key, el := range shard.data {
+			ent := el.Value.(*entry)
+
+			if ent.value.ExpiresAt > 0 && now > ent.value.ExpiresAt {
 				continue
 			}
 
 			var cmd string
-			if val.ExpiresAt > 0 {
-				cmd = "SET " + key + " " + val.Data + " " + strconv.FormatInt(val.ExpiresAt, 10) + "\n"
+			if ent.value.ExpiresAt > 0 {
+				cmd = "SET " + key + " " + ent.value.Data + " " + strconv.FormatInt(ent.value.ExpiresAt, 10) + "\n"
 			} else {
-				cmd = "SET " + key + " " + val.Data + "\n"
+				cmd = "SET " + key + " " + ent.value.Data + "\n"
 			}
 
 			if _, err := f.WriteString(cmd); err != nil {
