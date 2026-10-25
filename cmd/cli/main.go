@@ -141,8 +141,47 @@ func main() {
 				continue
 			}
 			log.Printf("%v", resp.Status)
+		case "CLEAR":
+			log.Printf("\033c")
+		case "HSET":
+			if len(args) < 3 {
+				log.Println("error USAGE: HSET <key> <field> <value>")
+				continue
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+			_, err = c.HSet(ctx, &pb.HSetRequest{Key: args[0], Field: args[1], Value: strings.Join(args[2:], " ")})
+			cancel()
+			if err != nil {
+				log.Printf("HSET failed: %v\n", err)
+				continue
+			}
+			log.Printf("successfully added, hash key: %v field: %v", args[0], args[1])
+		case "HGET":
+			if len(args) != 2 {
+				log.Println("error USAGE: HGET <key> <field>")
+				continue
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+			resp, err := c.HGet(ctx, &pb.HGetRequest{Key: args[0], Field: args[1]})
+			cancel()
+			if err != nil {
+				log.Printf("HGET failed error: %v", err)
+				continue
+			}
+			log.Printf("%v[%v] : %v", args[0], args[1], resp.Value)
+		case "INFO":
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
+			resp, err := c.Info(ctx, &pb.InfoRequest{})
+			cancel()
+			if err != nil {
+				log.Printf("INFO failed: %v\n", err)
+				continue
+			}
+			log.Printf("\n--- Telementry ---\nkeys: %d\nhits: %d\nmisses: %d\nevictions: %d\n----------------",
+				resp.Keys, resp.Hits, resp.Misses, resp.Evictions)
 		default:
-			log.Printf("ERR: Unknown command %q", command)
+			log.Printf("ERR: unknown command %q", command)
 		}
+
 	}
 }

@@ -565,6 +565,318 @@ func (x *BGRewriteResponse) GetStatus() string {
 	return ""
 }
 
+type HSetRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Field         string                 `protobuf:"bytes,2,opt,name=field,proto3" json:"field,omitempty"`
+	Value         string                 `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HSetRequest) Reset() {
+	*x = HSetRequest{}
+	mi := &file_store_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HSetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HSetRequest) ProtoMessage() {}
+
+func (x *HSetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HSetRequest.ProtoReflect.Descriptor instead.
+func (*HSetRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *HSetRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *HSetRequest) GetField() string {
+	if x != nil {
+		return x.Field
+	}
+	return ""
+}
+
+func (x *HSetRequest) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+type HSetResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HSetResponse) Reset() {
+	*x = HSetResponse{}
+	mi := &file_store_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HSetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HSetResponse) ProtoMessage() {}
+
+func (x *HSetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HSetResponse.ProtoReflect.Descriptor instead.
+func (*HSetResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *HSetResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type HGetRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Field         string                 `protobuf:"bytes,2,opt,name=field,proto3" json:"field,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HGetRequest) Reset() {
+	*x = HGetRequest{}
+	mi := &file_store_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HGetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HGetRequest) ProtoMessage() {}
+
+func (x *HGetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HGetRequest.ProtoReflect.Descriptor instead.
+func (*HGetRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *HGetRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *HGetRequest) GetField() string {
+	if x != nil {
+		return x.Field
+	}
+	return ""
+}
+
+type HGetResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         string                 `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Exists        bool                   `protobuf:"varint,2,opt,name=exists,proto3" json:"exists,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HGetResponse) Reset() {
+	*x = HGetResponse{}
+	mi := &file_store_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HGetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HGetResponse) ProtoMessage() {}
+
+func (x *HGetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HGetResponse.ProtoReflect.Descriptor instead.
+func (*HGetResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *HGetResponse) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+func (x *HGetResponse) GetExists() bool {
+	if x != nil {
+		return x.Exists
+	}
+	return false
+}
+
+type InfoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InfoRequest) Reset() {
+	*x = InfoRequest{}
+	mi := &file_store_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InfoRequest) ProtoMessage() {}
+
+func (x *InfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InfoRequest.ProtoReflect.Descriptor instead.
+func (*InfoRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{16}
+}
+
+type InfoResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Hits          uint64                 `protobuf:"varint,1,opt,name=hits,proto3" json:"hits,omitempty"`
+	Misses        uint64                 `protobuf:"varint,2,opt,name=misses,proto3" json:"misses,omitempty"`
+	Evictions     uint64                 `protobuf:"varint,3,opt,name=evictions,proto3" json:"evictions,omitempty"`
+	Keys          uint64                 `protobuf:"varint,4,opt,name=keys,proto3" json:"keys,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InfoResponse) Reset() {
+	*x = InfoResponse{}
+	mi := &file_store_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InfoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InfoResponse) ProtoMessage() {}
+
+func (x *InfoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InfoResponse.ProtoReflect.Descriptor instead.
+func (*InfoResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *InfoResponse) GetHits() uint64 {
+	if x != nil {
+		return x.Hits
+	}
+	return 0
+}
+
+func (x *InfoResponse) GetMisses() uint64 {
+	if x != nil {
+		return x.Misses
+	}
+	return 0
+}
+
+func (x *InfoResponse) GetEvictions() uint64 {
+	if x != nil {
+		return x.Evictions
+	}
+	return 0
+}
+
+func (x *InfoResponse) GetKeys() uint64 {
+	if x != nil {
+		return x.Keys
+	}
+	return 0
+}
+
 var File_store_proto protoreflect.FileDescriptor
 
 const file_store_proto_rawDesc = "" +
@@ -597,14 +909,35 @@ const file_store_proto_rawDesc = "" +
 	"\x06exists\x18\x01 \x01(\bR\x06exists\"\x12\n" +
 	"\x10BGRewriteRequest\"+\n" +
 	"\x11BGRewriteResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status2\x8b\x02\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\"K\n" +
+	"\vHSetRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05field\x18\x02 \x01(\tR\x05field\x12\x14\n" +
+	"\x05value\x18\x03 \x01(\tR\x05value\"(\n" +
+	"\fHSetResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"5\n" +
+	"\vHGetRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05field\x18\x02 \x01(\tR\x05field\"<\n" +
+	"\fHGetResponse\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\tR\x05value\x12\x16\n" +
+	"\x06exists\x18\x02 \x01(\bR\x06exists\"\r\n" +
+	"\vInfoRequest\"l\n" +
+	"\fInfoResponse\x12\x12\n" +
+	"\x04hits\x18\x01 \x01(\x04R\x04hits\x12\x16\n" +
+	"\x06misses\x18\x02 \x01(\x04R\x06misses\x12\x1c\n" +
+	"\tevictions\x18\x03 \x01(\x04R\tevictions\x12\x12\n" +
+	"\x04keys\x18\x04 \x01(\x04R\x04keys2\xfa\x02\n" +
 	"\rKeyValueStore\x12 \n" +
 	"\x03Set\x12\v.SetRequest\x1a\f.SetResponse\x12 \n" +
 	"\x03Get\x12\v.GetRequest\x1a\f.GetResponse\x12)\n" +
 	"\x06Delete\x12\x0e.DeleteRequest\x1a\x0f.DeleteResponse\x12&\n" +
 	"\x05BFAdd\x12\r.BFAddRequest\x1a\x0e.BFAddResponse\x12/\n" +
 	"\bBFExists\x12\x10.BFExistsRequest\x1a\x11.BFExistsResponse\x122\n" +
-	"\tBGRewrite\x12\x11.BGRewriteRequest\x1a\x12.BGRewriteResponseB\x06Z\x04./pbb\x06proto3"
+	"\tBGRewrite\x12\x11.BGRewriteRequest\x1a\x12.BGRewriteResponse\x12#\n" +
+	"\x04HSet\x12\f.HSetRequest\x1a\r.HSetResponse\x12#\n" +
+	"\x04HGet\x12\f.HGetRequest\x1a\r.HGetResponse\x12#\n" +
+	"\x04Info\x12\f.InfoRequest\x1a\r.InfoResponseB\x06Z\x04./pbb\x06proto3"
 
 var (
 	file_store_proto_rawDescOnce sync.Once
@@ -618,7 +951,7 @@ func file_store_proto_rawDescGZIP() []byte {
 	return file_store_proto_rawDescData
 }
 
-var file_store_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_store_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_store_proto_goTypes = []any{
 	(*SetRequest)(nil),        // 0: SetRequest
 	(*SetResponse)(nil),       // 1: SetResponse
@@ -632,6 +965,12 @@ var file_store_proto_goTypes = []any{
 	(*BFExistsResponse)(nil),  // 9: BFExistsResponse
 	(*BGRewriteRequest)(nil),  // 10: BGRewriteRequest
 	(*BGRewriteResponse)(nil), // 11: BGRewriteResponse
+	(*HSetRequest)(nil),       // 12: HSetRequest
+	(*HSetResponse)(nil),      // 13: HSetResponse
+	(*HGetRequest)(nil),       // 14: HGetRequest
+	(*HGetResponse)(nil),      // 15: HGetResponse
+	(*InfoRequest)(nil),       // 16: InfoRequest
+	(*InfoResponse)(nil),      // 17: InfoResponse
 }
 var file_store_proto_depIdxs = []int32{
 	0,  // 0: KeyValueStore.Set:input_type -> SetRequest
@@ -640,14 +979,20 @@ var file_store_proto_depIdxs = []int32{
 	6,  // 3: KeyValueStore.BFAdd:input_type -> BFAddRequest
 	8,  // 4: KeyValueStore.BFExists:input_type -> BFExistsRequest
 	10, // 5: KeyValueStore.BGRewrite:input_type -> BGRewriteRequest
-	1,  // 6: KeyValueStore.Set:output_type -> SetResponse
-	3,  // 7: KeyValueStore.Get:output_type -> GetResponse
-	5,  // 8: KeyValueStore.Delete:output_type -> DeleteResponse
-	7,  // 9: KeyValueStore.BFAdd:output_type -> BFAddResponse
-	9,  // 10: KeyValueStore.BFExists:output_type -> BFExistsResponse
-	11, // 11: KeyValueStore.BGRewrite:output_type -> BGRewriteResponse
-	6,  // [6:12] is the sub-list for method output_type
-	0,  // [0:6] is the sub-list for method input_type
+	12, // 6: KeyValueStore.HSet:input_type -> HSetRequest
+	14, // 7: KeyValueStore.HGet:input_type -> HGetRequest
+	16, // 8: KeyValueStore.Info:input_type -> InfoRequest
+	1,  // 9: KeyValueStore.Set:output_type -> SetResponse
+	3,  // 10: KeyValueStore.Get:output_type -> GetResponse
+	5,  // 11: KeyValueStore.Delete:output_type -> DeleteResponse
+	7,  // 12: KeyValueStore.BFAdd:output_type -> BFAddResponse
+	9,  // 13: KeyValueStore.BFExists:output_type -> BFExistsResponse
+	11, // 14: KeyValueStore.BGRewrite:output_type -> BGRewriteResponse
+	13, // 15: KeyValueStore.HSet:output_type -> HSetResponse
+	15, // 16: KeyValueStore.HGet:output_type -> HGetResponse
+	17, // 17: KeyValueStore.Info:output_type -> InfoResponse
+	9,  // [9:18] is the sub-list for method output_type
+	0,  // [0:9] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -664,7 +1009,7 @@ func file_store_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_store_proto_rawDesc), len(file_store_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

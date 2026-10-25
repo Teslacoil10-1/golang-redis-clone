@@ -100,3 +100,42 @@ func (s *Server) BGRewrite(ctx context.Context, req *pb.BGRewriteRequest) (*pb.B
 
 	return &pb.BGRewriteResponse{Status: "background aof rewrite successful"}, nil
 }
+
+func (s *Server) Hset(ctx context.Context, req *pb.HSetRequest) (*pb.HSetResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	success := s.DB.HSet(req.Key, req.Field, req.Value)
+	if !success {
+		return nil, status.Error(codes.InvalidArgument, "wrong type operation against a key holding the wrong kind of value")
+	}
+	aof.RecordCommand("HSET " + req.Key + " " + req.Field + " " + req.Value)
+
+	return &pb.HSetResponse{Success: true}, nil
+}
+
+func (s *Server) HGet(ctx context.Context, req *pb.HGetRequest) (*pb.HGetResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+
+	val, exists := s.DB.HGet(req.Key, req.Field)
+	if !exists {
+		return &pb.HGetResponse{Value: "", Exists: false}, nil
+	}
+
+	return &pb.HGetResponse{Value: val, Exists: true}, nil
+}
+
+func (s *Server) Info(ctx context.Context, req *pb.InfoRequest) (*pb.InfoResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+
+	return &pb.InfoResponse{
+		Hits:      s.DB.Stats.Hits.Load(),
+		Misses:    s.DB.Stats.Misses.Load(),
+		Evictions: s.DB.Stats.Evictions.Load(),
+		Keys:      s.DB.TotalKeys(),
+	}, nil
+}

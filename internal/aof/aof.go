@@ -94,7 +94,7 @@ func ReplayState(db *store.Store) {
 		for scanner.Scan() {
 			line := scanner.Text()
 
-			parts := strings.SplitN(line, " ", 4)
+			parts := strings.SplitN(line, " ", 5)
 
 			if len(parts) == 0 {
 				continue
@@ -115,6 +115,10 @@ func ReplayState(db *store.Store) {
 			case "DELETE":
 				if len(parts) >= 2 {
 					db.Delete(parts[1])
+				}
+			case "HSET":
+				if len(parts) >= 4 {
+					db.HSet(parts[1], parts[2], parts[3])
 				}
 
 			}

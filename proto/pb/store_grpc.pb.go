@@ -25,6 +25,9 @@ const (
 	KeyValueStore_BFAdd_FullMethodName     = "/KeyValueStore/BFAdd"
 	KeyValueStore_BFExists_FullMethodName  = "/KeyValueStore/BFExists"
 	KeyValueStore_BGRewrite_FullMethodName = "/KeyValueStore/BGRewrite"
+	KeyValueStore_HSet_FullMethodName      = "/KeyValueStore/HSet"
+	KeyValueStore_HGet_FullMethodName      = "/KeyValueStore/HGet"
+	KeyValueStore_Info_FullMethodName      = "/KeyValueStore/Info"
 )
 
 // KeyValueStoreClient is the client API for KeyValueStore service.
@@ -37,6 +40,9 @@ type KeyValueStoreClient interface {
 	BFAdd(ctx context.Context, in *BFAddRequest, opts ...grpc.CallOption) (*BFAddResponse, error)
 	BFExists(ctx context.Context, in *BFExistsRequest, opts ...grpc.CallOption) (*BFExistsResponse, error)
 	BGRewrite(ctx context.Context, in *BGRewriteRequest, opts ...grpc.CallOption) (*BGRewriteResponse, error)
+	HSet(ctx context.Context, in *HSetRequest, opts ...grpc.CallOption) (*HSetResponse, error)
+	HGet(ctx context.Context, in *HGetRequest, opts ...grpc.CallOption) (*HGetResponse, error)
+	Info(ctx context.Context, in *InfoRequest, opts ...grpc.CallOption) (*InfoResponse, error)
 }
 
 type keyValueStoreClient struct {
@@ -107,6 +113,36 @@ func (c *keyValueStoreClient) BGRewrite(ctx context.Context, in *BGRewriteReques
 	return out, nil
 }
 
+func (c *keyValueStoreClient) HSet(ctx context.Context, in *HSetRequest, opts ...grpc.CallOption) (*HSetResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HSetResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_HSet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) HGet(ctx context.Context, in *HGetRequest, opts ...grpc.CallOption) (*HGetResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HGetResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_HGet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) Info(ctx context.Context, in *InfoRequest, opts ...grpc.CallOption) (*InfoResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(InfoResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_Info_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // KeyValueStoreServer is the server API for KeyValueStore service.
 // All implementations should embed UnimplementedKeyValueStoreServer
 // for forward compatibility.
@@ -117,6 +153,9 @@ type KeyValueStoreServer interface {
 	BFAdd(context.Context, *BFAddRequest) (*BFAddResponse, error)
 	BFExists(context.Context, *BFExistsRequest) (*BFExistsResponse, error)
 	BGRewrite(context.Context, *BGRewriteRequest) (*BGRewriteResponse, error)
+	HSet(context.Context, *HSetRequest) (*HSetResponse, error)
+	HGet(context.Context, *HGetRequest) (*HGetResponse, error)
+	Info(context.Context, *InfoRequest) (*InfoResponse, error)
 }
 
 // UnimplementedKeyValueStoreServer should be embedded to have
@@ -143,6 +182,15 @@ func (UnimplementedKeyValueStoreServer) BFExists(context.Context, *BFExistsReque
 }
 func (UnimplementedKeyValueStoreServer) BGRewrite(context.Context, *BGRewriteRequest) (*BGRewriteResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method BGRewrite not implemented")
+}
+func (UnimplementedKeyValueStoreServer) HSet(context.Context, *HSetRequest) (*HSetResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method HSet not implemented")
+}
+func (UnimplementedKeyValueStoreServer) HGet(context.Context, *HGetRequest) (*HGetResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method HGet not implemented")
+}
+func (UnimplementedKeyValueStoreServer) Info(context.Context, *InfoRequest) (*InfoResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Info not implemented")
 }
 func (UnimplementedKeyValueStoreServer) testEmbeddedByValue() {}
 
@@ -272,6 +320,60 @@ func _KeyValueStore_BGRewrite_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KeyValueStore_HSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HSetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).HSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_HSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).HSet(ctx, req.(*HSetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_HGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HGetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).HGet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_HGet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).HGet(ctx, req.(*HGetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_Info_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).Info(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_Info_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).Info(ctx, req.(*InfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // KeyValueStore_ServiceDesc is the grpc.ServiceDesc for KeyValueStore service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -302,6 +404,18 @@ var KeyValueStore_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BGRewrite",
 			Handler:    _KeyValueStore_BGRewrite_Handler,
+		},
+		{
+			MethodName: "HSet",
+			Handler:    _KeyValueStore_HSet_Handler,
+		},
+		{
+			MethodName: "HGet",
+			Handler:    _KeyValueStore_HGet_Handler,
+		},
+		{
+			MethodName: "Info",
+			Handler:    _KeyValueStore_Info_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

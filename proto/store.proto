@@ -9,6 +9,9 @@ service KeyValueStore {
   rpc BFAdd(BFAddRequest) returns (BFAddResponse);
   rpc BFExists(BFExistsRequest) returns (BFExistsResponse);
   rpc BGRewrite(BGRewriteRequest) returns (BGRewriteResponse);
+  rpc HSet(HSetRequest) returns (HSetResponse);
+  rpc HGet(HGetRequest) returns (HGetResponse);
+  rpc Info(InfoRequest) returns (InfoResponse);
 }
 
 message SetRequest {
@@ -57,4 +60,33 @@ message BFExistsResponse {
 message BGRewriteRequest {}
 message BGRewriteResponse {
   string status = 1;
+}
+
+message HSetRequest {
+  string key = 1;
+  string field = 2;
+  string value = 3;
+}
+
+message HSetResponse {
+  bool success = 1;
+}
+
+message HGetRequest {
+  string key = 1;
+  string field = 2;
+}
+
+message HGetResponse {
+  string value = 1;
+  bool exists = 2;
+}
+
+message InfoRequest {}
+
+message InfoResponse {
+  uint64 hits = 1;
+  uint64 misses = 2;
+  uint64 evictions = 3;
+  uint64 keys = 4;
 }
