@@ -12,6 +12,8 @@ service KeyValueStore {
   rpc HSet(HSetRequest) returns (HSetResponse);
   rpc HGet(HGetRequest) returns (HGetResponse);
   rpc Info(InfoRequest) returns (InfoResponse);
+  rpc Subscribe(SubscribeRequest) returns (stream SubscribeResponse);
+  rpc Publish(PublishRequest) returns (PublishResponse);
 }
 
 message SetRequest {
@@ -89,4 +91,22 @@ message InfoResponse {
   uint64 misses = 2;
   uint64 evictions = 3;
   uint64 keys = 4;
+}
+
+message SubscribeRequest {
+  string channel = 1;
+}
+
+message SubscribeResponse {
+  string message = 1;
+  string channel = 2; 
+}
+
+message PublishRequest {
+  string channel = 1;
+  string message = 2;
+}
+
+message PublishResponse {
+  int32 subscribers_reached = 1;
 }

@@ -101,7 +101,7 @@ func (s *Server) BGRewrite(ctx context.Context, req *pb.BGRewriteRequest) (*pb.B
 	return &pb.BGRewriteResponse{Status: "background aof rewrite successful"}, nil
 }
 
-func (s *Server) Hset(ctx context.Context, req *pb.HSetRequest) (*pb.HSetResponse, error) {
+func (s *Server) HSet(ctx context.Context, req *pb.HSetRequest) (*pb.HSetResponse, error) {
 	if err := ctx.Err(); err != nil {
 		return nil, err
 	}
@@ -138,4 +138,29 @@ func (s *Server) Info(ctx context.Context, req *pb.InfoRequest) (*pb.InfoRespons
 		Evictions: s.DB.Stats.Evictions.Load(),
 		Keys:      s.DB.TotalKeys(),
 	}, nil
+}
+
+func (s *Server) Publish(ctx context.Context, req *pb.PublishRequest) (*pb.PublishResponse, error) {
+	count := s.DB.Broker.Publish(req.Channel, req.Message)
+	return &pb.PublishResponse{SubscribersReached: int32(count)}, nil
+}
+
+func (s *Server) Subscribe(req *pb.SubscribeRequest, stream pb.KeyValueStore_SubscribeServer) error {
+	ch := s.DB.Broker.Subscribe(req.Channel)
+	defer s.DB.Broker.Unsubscribe(req.Channel, ch)
+
+	for {
+		select {
+		case msg := <-ch:
+			err := stream.Send(&pb.SubscribeResponse{
+				Channel: req.Channel,
+				Message: msg,
+			})
+			if err != nil {
+				return err
+			}
+		case <-stream.Context().Done():
+			return nil
+		}
+	}
 }

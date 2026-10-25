@@ -179,6 +179,40 @@ func main() {
 			}
 			log.Printf("\n--- Telementry ---\nkeys: %d\nhits: %d\nmisses: %d\nevictions: %d\n----------------",
 				resp.Keys, resp.Hits, resp.Misses, resp.Evictions)
+		case "PUBLISH":
+			if len(args) < 2 {
+				log.Println("error USAGE: PUBLISH <channel> <message>")
+				continue
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+			resp, err := c.Publish(ctx, &pb.PublishRequest{Channel: args[0], Message: strings.Join(args[1:], " ")})
+			cancel()
+			if err != nil {
+				log.Printf("PUBLISH failed: %v\n", err)
+				continue
+			}
+			log.Printf("message published to %d subscribers", resp.SubscribersReached)
+		case "SUBSCRIBE":
+			if len(args) != 1 {
+				log.Println("error USAGE: SUBSCRIBE <channel>")
+				continue
+			}
+
+			stream, err := c.Subscribe(context.Background(), &pb.SubscribeRequest{Channel: args[0]})
+			if err != nil {
+				log.Printf("SUBSCRIBE failed: %v\n", err)
+				continue
+			}
+
+			log.Printf("subed to %s waiting for a response (ctrl+c to exit)", args[0])
+			for {
+				msg, err := stream.Recv()
+				if err != nil {
+					log.Printf("Disconnected from channel: %v", err)
+					break
+				}
+				log.Printf("[%s]: %s", msg.Channel, msg.Message)
+			}
 		default:
 			log.Printf("ERR: unknown command %q", command)
 		}

@@ -28,6 +28,8 @@ const (
 	KeyValueStore_HSet_FullMethodName      = "/KeyValueStore/HSet"
 	KeyValueStore_HGet_FullMethodName      = "/KeyValueStore/HGet"
 	KeyValueStore_Info_FullMethodName      = "/KeyValueStore/Info"
+	KeyValueStore_Subscribe_FullMethodName = "/KeyValueStore/Subscribe"
+	KeyValueStore_Publish_FullMethodName   = "/KeyValueStore/Publish"
 )
 
 // KeyValueStoreClient is the client API for KeyValueStore service.
@@ -43,6 +45,8 @@ type KeyValueStoreClient interface {
 	HSet(ctx context.Context, in *HSetRequest, opts ...grpc.CallOption) (*HSetResponse, error)
 	HGet(ctx context.Context, in *HGetRequest, opts ...grpc.CallOption) (*HGetResponse, error)
 	Info(ctx context.Context, in *InfoRequest, opts ...grpc.CallOption) (*InfoResponse, error)
+	Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[SubscribeResponse], error)
+	Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*PublishResponse, error)
 }
 
 type keyValueStoreClient struct {
@@ -143,6 +147,35 @@ func (c *keyValueStoreClient) Info(ctx context.Context, in *InfoRequest, opts ..
 	return out, nil
 }
 
+func (c *keyValueStoreClient) Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[SubscribeResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &KeyValueStore_ServiceDesc.Streams[0], KeyValueStore_Subscribe_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[SubscribeRequest, SubscribeResponse]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type KeyValueStore_SubscribeClient = grpc.ServerStreamingClient[SubscribeResponse]
+
+func (c *keyValueStoreClient) Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*PublishResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PublishResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_Publish_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // KeyValueStoreServer is the server API for KeyValueStore service.
 // All implementations should embed UnimplementedKeyValueStoreServer
 // for forward compatibility.
@@ -156,6 +189,8 @@ type KeyValueStoreServer interface {
 	HSet(context.Context, *HSetRequest) (*HSetResponse, error)
 	HGet(context.Context, *HGetRequest) (*HGetResponse, error)
 	Info(context.Context, *InfoRequest) (*InfoResponse, error)
+	Subscribe(*SubscribeRequest, grpc.ServerStreamingServer[SubscribeResponse]) error
+	Publish(context.Context, *PublishRequest) (*PublishResponse, error)
 }
 
 // UnimplementedKeyValueStoreServer should be embedded to have
@@ -191,6 +226,12 @@ func (UnimplementedKeyValueStoreServer) HGet(context.Context, *HGetRequest) (*HG
 }
 func (UnimplementedKeyValueStoreServer) Info(context.Context, *InfoRequest) (*InfoResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Info not implemented")
+}
+func (UnimplementedKeyValueStoreServer) Subscribe(*SubscribeRequest, grpc.ServerStreamingServer[SubscribeResponse]) error {
+	return status.Error(codes.Unimplemented, "method Subscribe not implemented")
+}
+func (UnimplementedKeyValueStoreServer) Publish(context.Context, *PublishRequest) (*PublishResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Publish not implemented")
 }
 func (UnimplementedKeyValueStoreServer) testEmbeddedByValue() {}
 
@@ -374,6 +415,35 @@ func _KeyValueStore_Info_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KeyValueStore_Subscribe_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(SubscribeRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(KeyValueStoreServer).Subscribe(m, &grpc.GenericServerStream[SubscribeRequest, SubscribeResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type KeyValueStore_SubscribeServer = grpc.ServerStreamingServer[SubscribeResponse]
+
+func _KeyValueStore_Publish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublishRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).Publish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_Publish_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).Publish(ctx, req.(*PublishRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // KeyValueStore_ServiceDesc is the grpc.ServiceDesc for KeyValueStore service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -417,7 +487,17 @@ var KeyValueStore_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "Info",
 			Handler:    _KeyValueStore_Info_Handler,
 		},
+		{
+			MethodName: "Publish",
+			Handler:    _KeyValueStore_Publish_Handler,
+		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Subscribe",
+			Handler:       _KeyValueStore_Subscribe_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "store.proto",
 }

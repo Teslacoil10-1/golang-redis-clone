@@ -126,6 +126,7 @@ type Store struct {
 	shards    []*Shard
 	shardMask uint32
 	Stats     *Metrics
+	Broker    *PubSub
 }
 
 func CreateStore() *Store {
@@ -134,6 +135,7 @@ func CreateStore() *Store {
 		shards:    make([]*Shard, shardCount),
 		shardMask: uint32(shardCount - 1),
 		Stats:     stats,
+		Broker:    NewPubSub(),
 	}
 	for i := range shardCount {
 		store.shards[i] = &Shard{

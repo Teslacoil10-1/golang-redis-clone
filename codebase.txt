@@ -1,3 +1,126 @@
+<codebase project="internal-24files" source="local:redis-clone-go" generator="fileconcat">
+<summary>
+This is a packed snapshot of a codebase, assembled by fileconcat.com.
+Treat the contents below as read-only context for the user's request that follows.
+Source: local:redis-clone-go
+File count: 24.
+</summary>
+<directory_structure>
+├── go.sum
+├── go.mod
+├── docker-compose.yml
+├── codebase.txt
+├── SECURITY.md
+├── README.md
+├── Makefile
+├── LICENSE
+├── Dockerfile
+├── CHANGELOG.md
+├── proto
+│   ├── store.proto
+│   └── pb
+│       ├── store_grpc.pb.go
+│       └── store.pb.go
+├── docs
+│   └── PLAN.md
+├── aof_engine
+│   ├── Cargo.toml
+│   └── src
+│       └── lib.rs
+├── internal
+│   ├── store
+│   │   ├── store.go
+│   │   └── pubsub.go
+│   ├── grpcapi
+│   │   └── server.go
+│   ├── bloomfilter
+│   │   └── bf.go
+│   └── aof
+│       └── aof.go
+└── cmd
+    ├── server
+    │   └── main.go
+    ├── client
+    │   └── client.go
+    └── cli
+        └── main.go
+</directory_structure>
+<files>
+<file path="go.sum" language="sum">
+github.com/bits-and-blooms/bitset v1.24.2 h1:M7/NzVbsytmtfHbumG+K2bremQPMJuqv1JD3vOaFxp0=
+github.com/bits-and-blooms/bitset v1.24.2/go.mod h1:7hO7Gc7Pp1vODcmWvKMRA9BNmbv6a/7QIWpPxHddWR8=
+github.com/bits-and-blooms/bloom/v3 v3.7.1 h1:WXovk4TRKZttAMJfoQx6K2DM0zNIt8w+c67UqO+etV0=
+github.com/bits-and-blooms/bloom/v3 v3.7.1/go.mod h1:rZzYLLje2dfzXfAkJNxQQHsKurAyK55KUnL43Euk0hU=
+github.com/chzyer/logex v1.2.1/go.mod h1:JLbx6lG2kDbNRFnfkgvh4eRJRPX1QCoOIWomwysCBrQ=
+github.com/chzyer/readline v1.5.1 h1:upd/6fQk4src78LMRzh5vItIt361/o4uq553V8B5sGI=
+github.com/chzyer/readline v1.5.1/go.mod h1:Eh+b79XXUwfKfcPLepksvw2tcLE/Ct21YObkaSkeBlk=
+github.com/chzyer/test v1.0.0/go.mod h1:2JlltgoNkt4TW/z9V/IzDdFaMTM2JPIi26O1pF38GC8=
+github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 h1:El6M4kTTCOh6aBiKaUGG7oYTSPP8MxqL4YI3kZKwcP4=
+github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510/go.mod h1:pupxD2MaaD3pAXIBCelhxNneeOaAeabZDe5s4K6zSpQ=
+github.com/twmb/murmur3 v1.1.8/go.mod h1:Qq/R7NUyOfr65zD+6Q5IHKsJLwP7exErjN6lyyq3OSQ=
+golang.org/x/net v0.57.0 h1:K5+3DljvIuDG9/Jv9rvyMywYNFCQ9RSUY6OOTTkT+tE=
+golang.org/x/net v0.57.0/go.mod h1:KpXc8iv+r3XplLAG/f7Jsf9RPszJzdR0f58q9vGOuEU=
+golang.org/x/sys v0.0.0-20220310020820-b874c991c1a5/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.47.0 h1:o7XGOvZQCADBQQ4Y7VNq2dRWQR7JmOUW8Kxx4ZsNgWs=
+golang.org/x/sys v0.47.0/go.mod h1:4GL1E5IUh+htKOUEOaiffhrAeqysfVGipDYzABqnCmw=
+golang.org/x/text v0.40.0 h1:Ub2Z6/xjgF1WrYQz2nuITOEegKFtiIy+rieRJ5lHZKs=
+golang.org/x/text v0.40.0/go.mod h1:hpnzDAfGV753zIKo+wk3u1bVKCGPbrnF7+7LBF/UHVY=
+google.golang.org/genproto/googleapis/rpc v0.0.0-20260706201446-f0a921348800 h1:qEHAMpSaUhtD0p3NbEEI83HwNGFxEwaSJ1G9PLnCBZE=
+google.golang.org/genproto/googleapis/rpc v0.0.0-20260706201446-f0a921348800/go.mod h1:4Hqkh8ycfw05ld/3BWL7rJOSfebL2Q+DVDeRgYgxUU8=
+google.golang.org/grpc v1.84.0 h1:soMyaPJ8pAak5PIQ0DGBUir0XRo2fRoMqhNWMLlLxO0=
+google.golang.org/grpc v1.84.0/go.mod h1:ljCht0DrxQrXBDRTZp52Qxh3Ffk8CdYm2sj4O2QN2C0=
+google.golang.org/protobuf v1.36.11 h1:fV6ZwhNocDyBLK0dj+fg8ektcVegBBuEolpbTQyBNVE=
+google.golang.org/protobuf v1.36.11/go.mod h1:HTf+CrKn2C3g5S8VImy6tdcUvCska2kB7j23XfzDpco=
+google.golang.org/protobuf v1.36.12 h1:pJOKDDOyeXErUroCihFAd5LQuwXBSpVnKGrj5o/fwxc=
+google.golang.org/protobuf v1.36.12/go.mod h1:HTf+CrKn2C3g5S8VImy6tdcUvCska2kB7j23XfzDpco=
+
+</file>
+<file path="go.mod" language="mod">
+module redis-clone
+
+go 1.27.0
+
+require (
+	github.com/bits-and-blooms/bitset v1.24.2 // indirect
+	github.com/bits-and-blooms/bloom/v3 v3.7.1 // indirect
+	github.com/chzyer/readline v1.5.1 // indirect
+	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
+	golang.org/x/net v0.57.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
+	golang.org/x/text v0.40.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260706201446-f0a921348800 // indirect
+	google.golang.org/grpc v1.84.0 // indirect
+	google.golang.org/protobuf v1.36.12 // indirect
+)
+
+</file>
+<file path="docker-compose.yml" language="yaml">
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: redis-clone-server:local
+    container_name: redis_clone_server
+    ports:
+      - "50051:50051"
+    volumes:
+      - redis_data:/data
+    environment:
+      - DATA_DIR=/data
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+
+volumes:
+  redis_data:
+    name: redis_clone_aof_rdb
+
+</file>
+<file path="codebase.txt" language="txt">
 <codebase project="internal-22files" source="local:redis-clone-go" generator="fileconcat">
 <summary>
 This is a packed snapshot of a codebase, assembled by fileconcat.com.
@@ -2129,6 +2252,3475 @@ func main() {
 			log.Printf("ERR: Unknown command %q", command)
 		}
 	}
+}
+
+</file>
+</files>
+</codebase>
+
+</file>
+<file path="SECURITY.md" language="markdown">
+# Security Policy
+
+
+## Reporting a Vulnerability
+
+**Please do not open a public GitHub issue for security vulnerabilities.** Publicly disclosing a flaw before a patch is ready puts the project at risk.
+
+Instead, please report vulnerabilities using one of the following secure methods:
+
+### Method 1: GitHub Private Vulnerability Reporting (Preferred)
+If enabled on this repository, please submit your report privately through GitHub:
+1. Navigate to the main page of the repository.
+2. Click the **Security** tab.
+3. Click **Reporting a vulnerability** on the left sidebar.
+4. Click **Start security advisory** and fill out the details.
+
+### Method 2: Secure Email
+If private reporting is unavailable, please email your report to **nrossiw@gmail.com**. 
+
+## What to Include in the Report
+
+To help us triage and fix the issue quickly, please include:
+* A clear description of the vulnerability and its potential impact.
+* The specific component, endpoint, or package affected.
+* Step-by-step instructions to reproduce the behavior (including code snippets or payloads).
+* Any potential mitigation steps or fixes you suggest.
+
+## Our Response Process
+
+* **Acknowledgement:** We will acknowledge receipt of your report within **48 hours**.
+* **Triage & Patching:** If verified, we will work on a fix. We aim to release a patch within **30 to 90 days**, depending on complexity.
+* **Credit:** We will gladly credit you in our security advisories and release notes once the vulnerability is resolved, unless you prefer to remain anonymous.
+
+</file>
+<file path="README.md" language="markdown">
+<a id="readme-top"></a>
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![APACHE-2.0][license-shield]][license-url]
+
+<br />
+<div align="center">
+  <h3 align="center">Redis clone</h3>
+
+  <p align="center">
+    a redis clone wrote in rust and go
+    <br />
+    <a href="https://github.com/Teslacoil10-1/golang-redis-clone/tree/main/docs"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://github.com/Teslacoil10-1/golang-redis-clone/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    &middot;
+    <a href="https://github.com/Teslacoil10-1/golang-redis-clone/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  </p>
+</div>
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#features">Features</a></li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#scripts--commands">Scripts / Commands</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
+
+## About The Project
+
+a redis clone wrote in rust and go
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Built With
+
+* [![Go][Go.dev]][Go-url]
+* [![Rust][Rust.org]][Rust-url]
+* [![gRPC][gRPC.io]][gRPC-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Features
+
+- GRPC instead of RESP
+- rust for the multi part AOF
+- go for the rest of the codebase
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Getting Started
+
+### Installation
+
+```
+git clone https://github.com/Teslacoil10-1/golang-redis-clone
+
+cd golang-redis-clone
+make up
+make cli // to enter the cli (optional)
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Usage
+
+there is two main entry points
+
+for the cli it is cmd/cli/main.go
+for the actual service its cmd/server/main.go
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Scripts / Commands
+
+```
+make up
+make cli
+make down
+make test
+make build
+make proto
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## License
+
+APACHE-2.0
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+[contributors-shield]: https://img.shields.io/github/contributors/Teslacoil10-1/golang-redis-clone.svg?style=for-the-badge
+[contributors-url]: https://github.com/Teslacoil10-1/golang-redis-clone/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Teslacoil10-1/golang-redis-clone.svg?style=for-the-badge
+[forks-url]: https://github.com/Teslacoil10-1/golang-redis-clone/network/members
+[stars-shield]: https://img.shields.io/github/stars/Teslacoil10-1/golang-redis-clone.svg?style=for-the-badge
+[stars-url]: https://github.com/Teslacoil10-1/golang-redis-clone/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Teslacoil10-1/golang-redis-clone.svg?style=for-the-badge
+[issues-url]: https://github.com/Teslacoil10-1/golang-redis-clone/issues
+[license-shield]: https://img.shields.io/github/license/Teslacoil10-1/golang-redis-clone.svg?style=for-the-badge
+[license-url]: https://github.com/Teslacoil10-1/golang-redis-clone/blob/master/LICENSE
+[Go.dev]: https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white
+[Go-url]: https://go.dev/
+[Rust.org]: https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white
+[Rust-url]: https://www.rust-lang.org/
+[gRPC.io]: https://img.shields.io/badge/gRPC-244C5A?style=for-the-badge&logo=grpc&logoColor=white
+[gRPC-url]: https://grpc.io/
+
+</file>
+<file path="Makefile" language="makefile">
+.PHONY: up down test lint build cli proto
+
+up:
+	docker-compose up -d --build
+
+down:
+	docker-compose down
+
+test:
+	go test -v -race ./...
+
+lint:
+	golangci-lint run
+
+build:
+	go build -o bin/server .
+
+cli:
+	go run ./cmd/cli/main.go
+
+proto:
+	cd proto && protoc --go_out=. --go-grpc_out=. --go-grpc_opt=require_unimplemented_servers=false store.proto
+
+</file>
+<file path="LICENSE" language="license">
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+</file>
+<file path="Dockerfile" language="dockerfile">
+FROM golang:1.27-alpine AS builder
+WORKDIR /app
+
+RUN apk add --no-cache gcc musl-dev rust cargo
+
+
+COPY aof_engine/ ./aof_engine/
+WORKDIR /app/aof_engine
+RUN cargo build --release
+
+WORKDIR /app
+COPY go.mod go.sum /
+RUN go mod download
+
+COPY . .
+
+ENV CGO_ENABLED=1
+RUN go build -ldflags="-s -w" -o redis-server ./cmd/server
+
+FROM alpine:latest
+WORKDIR /app
+
+RUN apk add --no-cache libgcc
+
+COPY --from=builder /app/redis-server .
+
+EXPOSE 50051
+CMD ["./redis-server"]
+
+</file>
+<file path="CHANGELOG.md" language="markdown">
+
+
+</file>
+<file path="proto/store.proto" language="protobuf">
+syntax = "proto3";
+
+option go_package = "./pb";
+
+service KeyValueStore {
+  rpc Set(SetRequest) returns (SetResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc BFAdd(BFAddRequest) returns (BFAddResponse);
+  rpc BFExists(BFExistsRequest) returns (BFExistsResponse);
+  rpc BGRewrite(BGRewriteRequest) returns (BGRewriteResponse);
+  rpc HSet(HSetRequest) returns (HSetResponse);
+  rpc HGet(HGetRequest) returns (HGetResponse);
+  rpc Info(InfoRequest) returns (InfoResponse);
+  rpc Subscribe(SubscribeRequest) returns (stream SubscribeResponse);
+  rpc Publish(PublishRequest) returns (PublishResponse);
+}
+
+message SetRequest {
+  string key = 1;
+  string value = 2;
+  int64 ttl = 3;
+}
+
+message SetResponse {
+  bool success = 1;
+}
+
+message GetRequest {
+  string key = 1;
+}
+
+message GetResponse {
+  string value = 1;
+  bool exists = 2;
+}
+
+message DeleteRequest {
+  string key = 1;
+}
+
+message DeleteResponse {
+  bool success = 1;
+}
+
+message BFAddRequest {
+  string key = 1;
+}
+
+message BFAddResponse {
+  bool success = 1;
+}
+
+message BFExistsRequest {
+  string key = 1;
+}
+
+message BFExistsResponse {
+  bool exists = 1;
+}
+
+message BGRewriteRequest {}
+message BGRewriteResponse {
+  string status = 1;
+}
+
+message HSetRequest {
+  string key = 1;
+  string field = 2;
+  string value = 3;
+}
+
+message HSetResponse {
+  bool success = 1;
+}
+
+message HGetRequest {
+  string key = 1;
+  string field = 2;
+}
+
+message HGetResponse {
+  string value = 1;
+  bool exists = 2;
+}
+
+message InfoRequest {}
+
+message InfoResponse {
+  uint64 hits = 1;
+  uint64 misses = 2;
+  uint64 evictions = 3;
+  uint64 keys = 4;
+}
+
+message SubscribeRequest {
+  string channel = 1;
+}
+
+message SubscribeResponse {
+  string message = 1;
+  string channel = 2; 
+}
+
+message PublishRequest {
+  string channel = 1;
+  string message = 2;
+}
+
+message PublishResponse {
+  int32 subscribers_reached = 1;
+}
+
+</file>
+<file path="docs/PLAN.md" language="markdown">
+
+## Project Diagram on eraser
+[Project - Eraser](https://app.eraser.io/workspace/Ps1zh8UDCUXeUqgXnJHL?origin=share)
+
+</file>
+<file path="aof_engine/Cargo.toml" language="toml">
+[package]
+name = "aof_engine"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+
+</file>
+<file path="proto/pb/store_grpc.pb.go" language="go">
+// Code generated by protoc-gen-go-grpc. DO NOT EDIT.
+// versions:
+// - protoc-gen-go-grpc v1.6.2
+// - protoc             v7.36.1
+// source: store.proto
+
+package pb
+
+import (
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
+)
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+// Requires gRPC-Go v1.64.0 or later.
+const _ = grpc.SupportPackageIsVersion9
+
+const (
+	KeyValueStore_Set_FullMethodName       = "/KeyValueStore/Set"
+	KeyValueStore_Get_FullMethodName       = "/KeyValueStore/Get"
+	KeyValueStore_Delete_FullMethodName    = "/KeyValueStore/Delete"
+	KeyValueStore_BFAdd_FullMethodName     = "/KeyValueStore/BFAdd"
+	KeyValueStore_BFExists_FullMethodName  = "/KeyValueStore/BFExists"
+	KeyValueStore_BGRewrite_FullMethodName = "/KeyValueStore/BGRewrite"
+	KeyValueStore_HSet_FullMethodName      = "/KeyValueStore/HSet"
+	KeyValueStore_HGet_FullMethodName      = "/KeyValueStore/HGet"
+	KeyValueStore_Info_FullMethodName      = "/KeyValueStore/Info"
+	KeyValueStore_Subscribe_FullMethodName = "/KeyValueStore/Subscribe"
+	KeyValueStore_Publish_FullMethodName   = "/KeyValueStore/Publish"
+)
+
+// KeyValueStoreClient is the client API for KeyValueStore service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type KeyValueStoreClient interface {
+	Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*SetResponse, error)
+	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
+	BFAdd(ctx context.Context, in *BFAddRequest, opts ...grpc.CallOption) (*BFAddResponse, error)
+	BFExists(ctx context.Context, in *BFExistsRequest, opts ...grpc.CallOption) (*BFExistsResponse, error)
+	BGRewrite(ctx context.Context, in *BGRewriteRequest, opts ...grpc.CallOption) (*BGRewriteResponse, error)
+	HSet(ctx context.Context, in *HSetRequest, opts ...grpc.CallOption) (*HSetResponse, error)
+	HGet(ctx context.Context, in *HGetRequest, opts ...grpc.CallOption) (*HGetResponse, error)
+	Info(ctx context.Context, in *InfoRequest, opts ...grpc.CallOption) (*InfoResponse, error)
+	Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[SubscribeResponse], error)
+	Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*PublishResponse, error)
+}
+
+type keyValueStoreClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewKeyValueStoreClient(cc grpc.ClientConnInterface) KeyValueStoreClient {
+	return &keyValueStoreClient{cc}
+}
+
+func (c *keyValueStoreClient) Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*SetResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_Set_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_Get_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_Delete_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) BFAdd(ctx context.Context, in *BFAddRequest, opts ...grpc.CallOption) (*BFAddResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BFAddResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_BFAdd_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) BFExists(ctx context.Context, in *BFExistsRequest, opts ...grpc.CallOption) (*BFExistsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BFExistsResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_BFExists_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) BGRewrite(ctx context.Context, in *BGRewriteRequest, opts ...grpc.CallOption) (*BGRewriteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BGRewriteResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_BGRewrite_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) HSet(ctx context.Context, in *HSetRequest, opts ...grpc.CallOption) (*HSetResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HSetResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_HSet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) HGet(ctx context.Context, in *HGetRequest, opts ...grpc.CallOption) (*HGetResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HGetResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_HGet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) Info(ctx context.Context, in *InfoRequest, opts ...grpc.CallOption) (*InfoResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(InfoResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_Info_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyValueStoreClient) Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[SubscribeResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &KeyValueStore_ServiceDesc.Streams[0], KeyValueStore_Subscribe_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[SubscribeRequest, SubscribeResponse]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type KeyValueStore_SubscribeClient = grpc.ServerStreamingClient[SubscribeResponse]
+
+func (c *keyValueStoreClient) Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*PublishResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PublishResponse)
+	err := c.cc.Invoke(ctx, KeyValueStore_Publish_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// KeyValueStoreServer is the server API for KeyValueStore service.
+// All implementations should embed UnimplementedKeyValueStoreServer
+// for forward compatibility.
+type KeyValueStoreServer interface {
+	Set(context.Context, *SetRequest) (*SetResponse, error)
+	Get(context.Context, *GetRequest) (*GetResponse, error)
+	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
+	BFAdd(context.Context, *BFAddRequest) (*BFAddResponse, error)
+	BFExists(context.Context, *BFExistsRequest) (*BFExistsResponse, error)
+	BGRewrite(context.Context, *BGRewriteRequest) (*BGRewriteResponse, error)
+	HSet(context.Context, *HSetRequest) (*HSetResponse, error)
+	HGet(context.Context, *HGetRequest) (*HGetResponse, error)
+	Info(context.Context, *InfoRequest) (*InfoResponse, error)
+	Subscribe(*SubscribeRequest, grpc.ServerStreamingServer[SubscribeResponse]) error
+	Publish(context.Context, *PublishRequest) (*PublishResponse, error)
+}
+
+// UnimplementedKeyValueStoreServer should be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedKeyValueStoreServer struct{}
+
+func (UnimplementedKeyValueStoreServer) Set(context.Context, *SetRequest) (*SetResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Set not implemented")
+}
+func (UnimplementedKeyValueStoreServer) Get(context.Context, *GetRequest) (*GetResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedKeyValueStoreServer) Delete(context.Context, *DeleteRequest) (*DeleteResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedKeyValueStoreServer) BFAdd(context.Context, *BFAddRequest) (*BFAddResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method BFAdd not implemented")
+}
+func (UnimplementedKeyValueStoreServer) BFExists(context.Context, *BFExistsRequest) (*BFExistsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method BFExists not implemented")
+}
+func (UnimplementedKeyValueStoreServer) BGRewrite(context.Context, *BGRewriteRequest) (*BGRewriteResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method BGRewrite not implemented")
+}
+func (UnimplementedKeyValueStoreServer) HSet(context.Context, *HSetRequest) (*HSetResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method HSet not implemented")
+}
+func (UnimplementedKeyValueStoreServer) HGet(context.Context, *HGetRequest) (*HGetResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method HGet not implemented")
+}
+func (UnimplementedKeyValueStoreServer) Info(context.Context, *InfoRequest) (*InfoResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Info not implemented")
+}
+func (UnimplementedKeyValueStoreServer) Subscribe(*SubscribeRequest, grpc.ServerStreamingServer[SubscribeResponse]) error {
+	return status.Error(codes.Unimplemented, "method Subscribe not implemented")
+}
+func (UnimplementedKeyValueStoreServer) Publish(context.Context, *PublishRequest) (*PublishResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Publish not implemented")
+}
+func (UnimplementedKeyValueStoreServer) testEmbeddedByValue() {}
+
+// UnsafeKeyValueStoreServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to KeyValueStoreServer will
+// result in compilation errors.
+type UnsafeKeyValueStoreServer interface {
+	mustEmbedUnimplementedKeyValueStoreServer()
+}
+
+func RegisterKeyValueStoreServer(s grpc.ServiceRegistrar, srv KeyValueStoreServer) {
+	// If the following call panics, it indicates UnimplementedKeyValueStoreServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&KeyValueStore_ServiceDesc, srv)
+}
+
+func _KeyValueStore_Set_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).Set(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_Set_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).Set(ctx, req.(*SetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_Get_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).Get(ctx, req.(*GetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_Delete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).Delete(ctx, req.(*DeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_BFAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BFAddRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).BFAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_BFAdd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).BFAdd(ctx, req.(*BFAddRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_BFExists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BFExistsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).BFExists(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_BFExists_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).BFExists(ctx, req.(*BFExistsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_BGRewrite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BGRewriteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).BGRewrite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_BGRewrite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).BGRewrite(ctx, req.(*BGRewriteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_HSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HSetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).HSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_HSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).HSet(ctx, req.(*HSetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_HGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HGetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).HGet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_HGet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).HGet(ctx, req.(*HGetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_Info_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).Info(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_Info_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).Info(ctx, req.(*InfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyValueStore_Subscribe_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(SubscribeRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(KeyValueStoreServer).Subscribe(m, &grpc.GenericServerStream[SubscribeRequest, SubscribeResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type KeyValueStore_SubscribeServer = grpc.ServerStreamingServer[SubscribeResponse]
+
+func _KeyValueStore_Publish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublishRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyValueStoreServer).Publish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyValueStore_Publish_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyValueStoreServer).Publish(ctx, req.(*PublishRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// KeyValueStore_ServiceDesc is the grpc.ServiceDesc for KeyValueStore service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var KeyValueStore_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "KeyValueStore",
+	HandlerType: (*KeyValueStoreServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Set",
+			Handler:    _KeyValueStore_Set_Handler,
+		},
+		{
+			MethodName: "Get",
+			Handler:    _KeyValueStore_Get_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _KeyValueStore_Delete_Handler,
+		},
+		{
+			MethodName: "BFAdd",
+			Handler:    _KeyValueStore_BFAdd_Handler,
+		},
+		{
+			MethodName: "BFExists",
+			Handler:    _KeyValueStore_BFExists_Handler,
+		},
+		{
+			MethodName: "BGRewrite",
+			Handler:    _KeyValueStore_BGRewrite_Handler,
+		},
+		{
+			MethodName: "HSet",
+			Handler:    _KeyValueStore_HSet_Handler,
+		},
+		{
+			MethodName: "HGet",
+			Handler:    _KeyValueStore_HGet_Handler,
+		},
+		{
+			MethodName: "Info",
+			Handler:    _KeyValueStore_Info_Handler,
+		},
+		{
+			MethodName: "Publish",
+			Handler:    _KeyValueStore_Publish_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Subscribe",
+			Handler:       _KeyValueStore_Subscribe_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "store.proto",
+}
+
+</file>
+<file path="proto/pb/store.pb.go" language="go">
+// Code generated by protoc-gen-go. DO NOT EDIT.
+// versions:
+// 	protoc-gen-go v1.36.12
+// 	protoc        v7.36.1
+// source: store.proto
+
+package pb
+
+import (
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
+)
+
+const (
+	// Verify that this generated code is sufficiently up-to-date.
+	_ = protoimpl.EnforceVersion(20 - protoimpl.MinVersion)
+	// Verify that runtime/protoimpl is sufficiently up-to-date.
+	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
+)
+
+type SetRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         string                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	Ttl           int64                  `protobuf:"varint,3,opt,name=ttl,proto3" json:"ttl,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetRequest) Reset() {
+	*x = SetRequest{}
+	mi := &file_store_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetRequest) ProtoMessage() {}
+
+func (x *SetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetRequest.ProtoReflect.Descriptor instead.
+func (*SetRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *SetRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *SetRequest) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+func (x *SetRequest) GetTtl() int64 {
+	if x != nil {
+		return x.Ttl
+	}
+	return 0
+}
+
+type SetResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetResponse) Reset() {
+	*x = SetResponse{}
+	mi := &file_store_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetResponse) ProtoMessage() {}
+
+func (x *SetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetResponse.ProtoReflect.Descriptor instead.
+func (*SetResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *SetResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type GetRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRequest) Reset() {
+	*x = GetRequest{}
+	mi := &file_store_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRequest) ProtoMessage() {}
+
+func (x *GetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRequest.ProtoReflect.Descriptor instead.
+func (*GetRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type GetResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         string                 `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Exists        bool                   `protobuf:"varint,2,opt,name=exists,proto3" json:"exists,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetResponse) Reset() {
+	*x = GetResponse{}
+	mi := &file_store_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetResponse) ProtoMessage() {}
+
+func (x *GetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetResponse.ProtoReflect.Descriptor instead.
+func (*GetResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetResponse) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+func (x *GetResponse) GetExists() bool {
+	if x != nil {
+		return x.Exists
+	}
+	return false
+}
+
+type DeleteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteRequest) Reset() {
+	*x = DeleteRequest{}
+	mi := &file_store_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteRequest) ProtoMessage() {}
+
+func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteRequest.ProtoReflect.Descriptor instead.
+func (*DeleteRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *DeleteRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type DeleteResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteResponse) Reset() {
+	*x = DeleteResponse{}
+	mi := &file_store_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteResponse) ProtoMessage() {}
+
+func (x *DeleteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteResponse.ProtoReflect.Descriptor instead.
+func (*DeleteResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *DeleteResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type BFAddRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BFAddRequest) Reset() {
+	*x = BFAddRequest{}
+	mi := &file_store_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BFAddRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BFAddRequest) ProtoMessage() {}
+
+func (x *BFAddRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BFAddRequest.ProtoReflect.Descriptor instead.
+func (*BFAddRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *BFAddRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type BFAddResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BFAddResponse) Reset() {
+	*x = BFAddResponse{}
+	mi := &file_store_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BFAddResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BFAddResponse) ProtoMessage() {}
+
+func (x *BFAddResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BFAddResponse.ProtoReflect.Descriptor instead.
+func (*BFAddResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *BFAddResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type BFExistsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BFExistsRequest) Reset() {
+	*x = BFExistsRequest{}
+	mi := &file_store_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BFExistsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BFExistsRequest) ProtoMessage() {}
+
+func (x *BFExistsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BFExistsRequest.ProtoReflect.Descriptor instead.
+func (*BFExistsRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *BFExistsRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type BFExistsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Exists        bool                   `protobuf:"varint,1,opt,name=exists,proto3" json:"exists,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BFExistsResponse) Reset() {
+	*x = BFExistsResponse{}
+	mi := &file_store_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BFExistsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BFExistsResponse) ProtoMessage() {}
+
+func (x *BFExistsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BFExistsResponse.ProtoReflect.Descriptor instead.
+func (*BFExistsResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *BFExistsResponse) GetExists() bool {
+	if x != nil {
+		return x.Exists
+	}
+	return false
+}
+
+type BGRewriteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BGRewriteRequest) Reset() {
+	*x = BGRewriteRequest{}
+	mi := &file_store_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BGRewriteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BGRewriteRequest) ProtoMessage() {}
+
+func (x *BGRewriteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BGRewriteRequest.ProtoReflect.Descriptor instead.
+func (*BGRewriteRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{10}
+}
+
+type BGRewriteResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BGRewriteResponse) Reset() {
+	*x = BGRewriteResponse{}
+	mi := &file_store_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BGRewriteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BGRewriteResponse) ProtoMessage() {}
+
+func (x *BGRewriteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BGRewriteResponse.ProtoReflect.Descriptor instead.
+func (*BGRewriteResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *BGRewriteResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+type HSetRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Field         string                 `protobuf:"bytes,2,opt,name=field,proto3" json:"field,omitempty"`
+	Value         string                 `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HSetRequest) Reset() {
+	*x = HSetRequest{}
+	mi := &file_store_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HSetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HSetRequest) ProtoMessage() {}
+
+func (x *HSetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HSetRequest.ProtoReflect.Descriptor instead.
+func (*HSetRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *HSetRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *HSetRequest) GetField() string {
+	if x != nil {
+		return x.Field
+	}
+	return ""
+}
+
+func (x *HSetRequest) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+type HSetResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HSetResponse) Reset() {
+	*x = HSetResponse{}
+	mi := &file_store_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HSetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HSetResponse) ProtoMessage() {}
+
+func (x *HSetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HSetResponse.ProtoReflect.Descriptor instead.
+func (*HSetResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *HSetResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type HGetRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Field         string                 `protobuf:"bytes,2,opt,name=field,proto3" json:"field,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HGetRequest) Reset() {
+	*x = HGetRequest{}
+	mi := &file_store_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HGetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HGetRequest) ProtoMessage() {}
+
+func (x *HGetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HGetRequest.ProtoReflect.Descriptor instead.
+func (*HGetRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *HGetRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *HGetRequest) GetField() string {
+	if x != nil {
+		return x.Field
+	}
+	return ""
+}
+
+type HGetResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         string                 `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Exists        bool                   `protobuf:"varint,2,opt,name=exists,proto3" json:"exists,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HGetResponse) Reset() {
+	*x = HGetResponse{}
+	mi := &file_store_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HGetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HGetResponse) ProtoMessage() {}
+
+func (x *HGetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HGetResponse.ProtoReflect.Descriptor instead.
+func (*HGetResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *HGetResponse) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+func (x *HGetResponse) GetExists() bool {
+	if x != nil {
+		return x.Exists
+	}
+	return false
+}
+
+type InfoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InfoRequest) Reset() {
+	*x = InfoRequest{}
+	mi := &file_store_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InfoRequest) ProtoMessage() {}
+
+func (x *InfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InfoRequest.ProtoReflect.Descriptor instead.
+func (*InfoRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{16}
+}
+
+type InfoResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Hits          uint64                 `protobuf:"varint,1,opt,name=hits,proto3" json:"hits,omitempty"`
+	Misses        uint64                 `protobuf:"varint,2,opt,name=misses,proto3" json:"misses,omitempty"`
+	Evictions     uint64                 `protobuf:"varint,3,opt,name=evictions,proto3" json:"evictions,omitempty"`
+	Keys          uint64                 `protobuf:"varint,4,opt,name=keys,proto3" json:"keys,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InfoResponse) Reset() {
+	*x = InfoResponse{}
+	mi := &file_store_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InfoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InfoResponse) ProtoMessage() {}
+
+func (x *InfoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InfoResponse.ProtoReflect.Descriptor instead.
+func (*InfoResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *InfoResponse) GetHits() uint64 {
+	if x != nil {
+		return x.Hits
+	}
+	return 0
+}
+
+func (x *InfoResponse) GetMisses() uint64 {
+	if x != nil {
+		return x.Misses
+	}
+	return 0
+}
+
+func (x *InfoResponse) GetEvictions() uint64 {
+	if x != nil {
+		return x.Evictions
+	}
+	return 0
+}
+
+func (x *InfoResponse) GetKeys() uint64 {
+	if x != nil {
+		return x.Keys
+	}
+	return 0
+}
+
+type SubscribeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Channel       string                 `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubscribeRequest) Reset() {
+	*x = SubscribeRequest{}
+	mi := &file_store_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeRequest) ProtoMessage() {}
+
+func (x *SubscribeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeRequest.ProtoReflect.Descriptor instead.
+func (*SubscribeRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *SubscribeRequest) GetChannel() string {
+	if x != nil {
+		return x.Channel
+	}
+	return ""
+}
+
+type SubscribeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Channel       string                 `protobuf:"bytes,2,opt,name=channel,proto3" json:"channel,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubscribeResponse) Reset() {
+	*x = SubscribeResponse{}
+	mi := &file_store_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeResponse) ProtoMessage() {}
+
+func (x *SubscribeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeResponse.ProtoReflect.Descriptor instead.
+func (*SubscribeResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *SubscribeResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *SubscribeResponse) GetChannel() string {
+	if x != nil {
+		return x.Channel
+	}
+	return ""
+}
+
+type PublishRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Channel       string                 `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PublishRequest) Reset() {
+	*x = PublishRequest{}
+	mi := &file_store_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PublishRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PublishRequest) ProtoMessage() {}
+
+func (x *PublishRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PublishRequest.ProtoReflect.Descriptor instead.
+func (*PublishRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *PublishRequest) GetChannel() string {
+	if x != nil {
+		return x.Channel
+	}
+	return ""
+}
+
+func (x *PublishRequest) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type PublishResponse struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	SubscribersReached int32                  `protobuf:"varint,1,opt,name=subscribers_reached,json=subscribersReached,proto3" json:"subscribers_reached,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *PublishResponse) Reset() {
+	*x = PublishResponse{}
+	mi := &file_store_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PublishResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PublishResponse) ProtoMessage() {}
+
+func (x *PublishResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PublishResponse.ProtoReflect.Descriptor instead.
+func (*PublishResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *PublishResponse) GetSubscribersReached() int32 {
+	if x != nil {
+		return x.SubscribersReached
+	}
+	return 0
+}
+
+var File_store_proto protoreflect.FileDescriptor
+
+const file_store_proto_rawDesc = "" +
+	"\n" +
+	"\vstore.proto\"F\n" +
+	"\n" +
+	"SetRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\x12\x10\n" +
+	"\x03ttl\x18\x03 \x01(\x03R\x03ttl\"'\n" +
+	"\vSetResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"\x1e\n" +
+	"\n" +
+	"GetRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\";\n" +
+	"\vGetResponse\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\tR\x05value\x12\x16\n" +
+	"\x06exists\x18\x02 \x01(\bR\x06exists\"!\n" +
+	"\rDeleteRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\"*\n" +
+	"\x0eDeleteResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\" \n" +
+	"\fBFAddRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\")\n" +
+	"\rBFAddResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"#\n" +
+	"\x0fBFExistsRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\"*\n" +
+	"\x10BFExistsResponse\x12\x16\n" +
+	"\x06exists\x18\x01 \x01(\bR\x06exists\"\x12\n" +
+	"\x10BGRewriteRequest\"+\n" +
+	"\x11BGRewriteResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\"K\n" +
+	"\vHSetRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05field\x18\x02 \x01(\tR\x05field\x12\x14\n" +
+	"\x05value\x18\x03 \x01(\tR\x05value\"(\n" +
+	"\fHSetResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"5\n" +
+	"\vHGetRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05field\x18\x02 \x01(\tR\x05field\"<\n" +
+	"\fHGetResponse\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\tR\x05value\x12\x16\n" +
+	"\x06exists\x18\x02 \x01(\bR\x06exists\"\r\n" +
+	"\vInfoRequest\"l\n" +
+	"\fInfoResponse\x12\x12\n" +
+	"\x04hits\x18\x01 \x01(\x04R\x04hits\x12\x16\n" +
+	"\x06misses\x18\x02 \x01(\x04R\x06misses\x12\x1c\n" +
+	"\tevictions\x18\x03 \x01(\x04R\tevictions\x12\x12\n" +
+	"\x04keys\x18\x04 \x01(\x04R\x04keys\",\n" +
+	"\x10SubscribeRequest\x12\x18\n" +
+	"\achannel\x18\x01 \x01(\tR\achannel\"G\n" +
+	"\x11SubscribeResponse\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\x12\x18\n" +
+	"\achannel\x18\x02 \x01(\tR\achannel\"D\n" +
+	"\x0ePublishRequest\x12\x18\n" +
+	"\achannel\x18\x01 \x01(\tR\achannel\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"B\n" +
+	"\x0fPublishResponse\x12/\n" +
+	"\x13subscribers_reached\x18\x01 \x01(\x05R\x12subscribersReached2\xde\x03\n" +
+	"\rKeyValueStore\x12 \n" +
+	"\x03Set\x12\v.SetRequest\x1a\f.SetResponse\x12 \n" +
+	"\x03Get\x12\v.GetRequest\x1a\f.GetResponse\x12)\n" +
+	"\x06Delete\x12\x0e.DeleteRequest\x1a\x0f.DeleteResponse\x12&\n" +
+	"\x05BFAdd\x12\r.BFAddRequest\x1a\x0e.BFAddResponse\x12/\n" +
+	"\bBFExists\x12\x10.BFExistsRequest\x1a\x11.BFExistsResponse\x122\n" +
+	"\tBGRewrite\x12\x11.BGRewriteRequest\x1a\x12.BGRewriteResponse\x12#\n" +
+	"\x04HSet\x12\f.HSetRequest\x1a\r.HSetResponse\x12#\n" +
+	"\x04HGet\x12\f.HGetRequest\x1a\r.HGetResponse\x12#\n" +
+	"\x04Info\x12\f.InfoRequest\x1a\r.InfoResponse\x124\n" +
+	"\tSubscribe\x12\x11.SubscribeRequest\x1a\x12.SubscribeResponse0\x01\x12,\n" +
+	"\aPublish\x12\x0f.PublishRequest\x1a\x10.PublishResponseB\x06Z\x04./pbb\x06proto3"
+
+var (
+	file_store_proto_rawDescOnce sync.Once
+	file_store_proto_rawDescData []byte
+)
+
+func file_store_proto_rawDescGZIP() []byte {
+	file_store_proto_rawDescOnce.Do(func() {
+		file_store_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_store_proto_rawDesc), len(file_store_proto_rawDesc)))
+	})
+	return file_store_proto_rawDescData
+}
+
+var file_store_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
+var file_store_proto_goTypes = []any{
+	(*SetRequest)(nil),        // 0: SetRequest
+	(*SetResponse)(nil),       // 1: SetResponse
+	(*GetRequest)(nil),        // 2: GetRequest
+	(*GetResponse)(nil),       // 3: GetResponse
+	(*DeleteRequest)(nil),     // 4: DeleteRequest
+	(*DeleteResponse)(nil),    // 5: DeleteResponse
+	(*BFAddRequest)(nil),      // 6: BFAddRequest
+	(*BFAddResponse)(nil),     // 7: BFAddResponse
+	(*BFExistsRequest)(nil),   // 8: BFExistsRequest
+	(*BFExistsResponse)(nil),  // 9: BFExistsResponse
+	(*BGRewriteRequest)(nil),  // 10: BGRewriteRequest
+	(*BGRewriteResponse)(nil), // 11: BGRewriteResponse
+	(*HSetRequest)(nil),       // 12: HSetRequest
+	(*HSetResponse)(nil),      // 13: HSetResponse
+	(*HGetRequest)(nil),       // 14: HGetRequest
+	(*HGetResponse)(nil),      // 15: HGetResponse
+	(*InfoRequest)(nil),       // 16: InfoRequest
+	(*InfoResponse)(nil),      // 17: InfoResponse
+	(*SubscribeRequest)(nil),  // 18: SubscribeRequest
+	(*SubscribeResponse)(nil), // 19: SubscribeResponse
+	(*PublishRequest)(nil),    // 20: PublishRequest
+	(*PublishResponse)(nil),   // 21: PublishResponse
+}
+var file_store_proto_depIdxs = []int32{
+	0,  // 0: KeyValueStore.Set:input_type -> SetRequest
+	2,  // 1: KeyValueStore.Get:input_type -> GetRequest
+	4,  // 2: KeyValueStore.Delete:input_type -> DeleteRequest
+	6,  // 3: KeyValueStore.BFAdd:input_type -> BFAddRequest
+	8,  // 4: KeyValueStore.BFExists:input_type -> BFExistsRequest
+	10, // 5: KeyValueStore.BGRewrite:input_type -> BGRewriteRequest
+	12, // 6: KeyValueStore.HSet:input_type -> HSetRequest
+	14, // 7: KeyValueStore.HGet:input_type -> HGetRequest
+	16, // 8: KeyValueStore.Info:input_type -> InfoRequest
+	18, // 9: KeyValueStore.Subscribe:input_type -> SubscribeRequest
+	20, // 10: KeyValueStore.Publish:input_type -> PublishRequest
+	1,  // 11: KeyValueStore.Set:output_type -> SetResponse
+	3,  // 12: KeyValueStore.Get:output_type -> GetResponse
+	5,  // 13: KeyValueStore.Delete:output_type -> DeleteResponse
+	7,  // 14: KeyValueStore.BFAdd:output_type -> BFAddResponse
+	9,  // 15: KeyValueStore.BFExists:output_type -> BFExistsResponse
+	11, // 16: KeyValueStore.BGRewrite:output_type -> BGRewriteResponse
+	13, // 17: KeyValueStore.HSet:output_type -> HSetResponse
+	15, // 18: KeyValueStore.HGet:output_type -> HGetResponse
+	17, // 19: KeyValueStore.Info:output_type -> InfoResponse
+	19, // 20: KeyValueStore.Subscribe:output_type -> SubscribeResponse
+	21, // 21: KeyValueStore.Publish:output_type -> PublishResponse
+	11, // [11:22] is the sub-list for method output_type
+	0,  // [0:11] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
+}
+
+func init() { file_store_proto_init() }
+func file_store_proto_init() {
+	if File_store_proto != nil {
+		return
+	}
+	type x struct{}
+	out := protoimpl.TypeBuilder{
+		File: protoimpl.DescBuilder{
+			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_store_proto_rawDesc), len(file_store_proto_rawDesc)),
+			NumEnums:      0,
+			NumMessages:   22,
+			NumExtensions: 0,
+			NumServices:   1,
+		},
+		GoTypes:           file_store_proto_goTypes,
+		DependencyIndexes: file_store_proto_depIdxs,
+		MessageInfos:      file_store_proto_msgTypes,
+	}.Build()
+	File_store_proto = out.File
+	file_store_proto_goTypes = nil
+	file_store_proto_depIdxs = nil
+}
+
+</file>
+<file path="internal/store/store.go" language="go">
+// Package store
+package store
+
+import (
+	"container/list"
+	"hash/fnv"
+	"os"
+	"strconv"
+	"sync"
+	"sync/atomic"
+	"time"
+)
+
+type Metrics struct {
+	Hits      atomic.Uint64
+	Misses    atomic.Uint64
+	Evictions atomic.Uint64
+}
+
+type DataType string
+
+const (
+	TypeString DataType = "string"
+	TypeHash   DataType = "hash"
+)
+
+type Value struct {
+	Type      DataType
+	StrData   string
+	HashData  map[string]string
+	ExpiresAt int64
+}
+
+type entry struct {
+	key   string
+	value Value
+}
+
+const (
+	shardCount     = 32
+	maxKeyPerShard = 1000
+)
+
+type Shard struct {
+	data    map[string]*list.Element
+	lruList *list.List
+	cap     int
+	mu      sync.RWMutex
+	metrics *Metrics
+}
+
+func (s *Shard) Set(key, value string) {
+	s.SetWithTTL(key, value, 0)
+}
+
+func (s *Shard) SetWithTTL(key, value string, expiresAt int64) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	if el, ok := s.data[key]; ok {
+		s.lruList.MoveToFront(el)
+		el.Value.(*entry).value = Value{Type: TypeString, StrData: value, ExpiresAt: expiresAt}
+		return
+	}
+
+	el := s.lruList.PushFront(&entry{
+		key:   key,
+		value: Value{Type: TypeString, StrData: value, ExpiresAt: expiresAt},
+	})
+	s.data[key] = el
+
+	if s.lruList.Len() > s.cap {
+		s.evictOldest()
+	}
+}
+
+func (s *Shard) Get(key string) (string, bool) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	el, ok := s.data[key]
+	if !ok {
+		s.metrics.Misses.Add(1)
+		return "", false
+	}
+
+	ent := el.Value.(*entry)
+
+	if ent.value.ExpiresAt > 0 && time.Now().UnixNano() > ent.value.ExpiresAt {
+		s.removeElement(el)
+		s.metrics.Misses.Add(1)
+		return "", false
+	}
+
+	s.lruList.MoveToFront(el)
+	s.metrics.Hits.Add(1)
+	return ent.value.StrData, true
+}
+
+func (s *Shard) Delete(key string) bool {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	if el, exists := s.data[key]; exists {
+		s.removeElement(el)
+		return true
+	}
+	return false
+}
+
+func (s *Shard) evictOldest() {
+	el := s.lruList.Back()
+	if el != nil {
+		s.removeElement(el)
+		s.metrics.Evictions.Add(1)
+	}
+}
+
+func (s *Shard) removeElement(el *list.Element) {
+	s.lruList.Remove(el)
+	ent := el.Value.(*entry)
+	delete(s.data, ent.key)
+}
+
+type Store struct {
+	shards    []*Shard
+	shardMask uint32
+	Stats     *Metrics
+	Broker    *PubSub
+}
+
+func CreateStore() *Store {
+	stats := &Metrics{}
+	store := &Store{
+		shards:    make([]*Shard, shardCount),
+		shardMask: uint32(shardCount - 1),
+		Stats:     stats,
+		Broker:    NewPubSub(),
+	}
+	for i := range shardCount {
+		store.shards[i] = &Shard{
+			data:    make(map[string]*list.Element),
+			lruList: list.New(),
+			cap:     maxKeyPerShard,
+			metrics: stats,
+		}
+	}
+	return store
+}
+
+func (s *Store) getShard(key string) *Shard {
+	h := fnv.New32a()
+	h.Write([]byte(key))
+	return s.shards[h.Sum32()&s.shardMask]
+}
+
+func (s *Store) Set(key, value string) {
+	s.getShard(key).Set(key, value)
+}
+
+func (s *Store) SetWithTTL(key, value string, expiresAt int64) {
+	s.getShard(key).SetWithTTL(key, value, expiresAt)
+}
+
+func (s *Store) Get(key string) (string, bool) {
+	return s.getShard(key).Get(key)
+}
+
+func (s *Store) Delete(key string) bool {
+	return s.getShard(key).Delete(key)
+}
+
+func (store *Store) StartGarbageCollector() {
+	go func() {
+		ticker := time.NewTicker(100 * time.Millisecond)
+		defer ticker.Stop()
+
+		for range ticker.C {
+			now := time.Now().UnixNano()
+			for _, shard := range store.shards {
+				shard.mu.Lock()
+
+				for _, el := range shard.data {
+					ent := el.Value.(*entry)
+					if ent.value.ExpiresAt > 0 && now > ent.value.ExpiresAt {
+						shard.removeElement(el)
+					}
+				}
+				shard.mu.Unlock()
+			}
+		}
+	}()
+}
+
+func (store *Store) DumpState(f *os.File) error {
+	now := time.Now().UnixNano()
+
+	for _, shard := range store.shards {
+		shard.mu.RLock()
+		for key, el := range shard.data {
+			ent := el.Value.(*entry)
+
+			if ent.value.ExpiresAt > 0 && now > ent.value.ExpiresAt {
+				continue
+			}
+
+			if ent.value.Type == TypeString {
+				var cmd string
+				if ent.value.ExpiresAt > 0 {
+					cmd = "SET " + key + " " + ent.value.StrData + " " + strconv.FormatInt(ent.value.ExpiresAt, 10) + "\n"
+				} else {
+					cmd = "SET " + key + " " + ent.value.StrData + "\n"
+				}
+				if _, err := f.WriteString(cmd); err != nil {
+					shard.mu.RUnlock()
+					return err
+				}
+			} else if ent.value.Type == TypeHash {
+				for field, fieldVal := range ent.value.HashData {
+					cmd := "HSET " + key + " " + field + " " + fieldVal + "\n"
+					if _, err := f.WriteString(cmd); err != nil {
+						shard.mu.RUnlock()
+						return err
+					}
+				}
+			}
+		}
+		shard.mu.RUnlock()
+	}
+	return nil
+}
+
+func (s *Shard) HSet(key, field, value string) bool {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	if el, ok := s.data[key]; ok {
+		ent := el.Value.(*entry)
+		if ent.value.Type != TypeHash {
+			return false
+		}
+		ent.value.HashData[field] = value
+		s.lruList.MoveToFront(el)
+		return true
+	}
+
+	hashMap := make(map[string]string)
+	hashMap[field] = value
+	el := s.lruList.PushFront(&entry{
+		key: key,
+		value: Value{
+			Type:     TypeHash,
+			HashData: hashMap,
+		},
+	})
+	s.data[key] = el
+
+	if s.lruList.Len() > s.cap {
+		s.evictOldest()
+	}
+	return true
+}
+
+func (s *Shard) HGet(key, field string) (string, bool) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	el, ok := s.data[key]
+	if !ok {
+		return "", false
+	}
+
+	ent := el.Value.(*entry)
+	if ent.value.ExpiresAt > 0 && time.Now().UnixNano() > ent.value.ExpiresAt {
+		s.removeElement(el)
+		return "", false
+	}
+
+	if ent.value.Type != TypeHash {
+		return "", false
+	}
+
+	val, exists := ent.value.HashData[field]
+	if !exists {
+		return "", false
+	}
+
+	s.lruList.MoveToFront(el)
+	return val, true
+}
+
+func (s *Store) HSet(key, field, value string) bool {
+	return s.getShard(key).HSet(key, field, value)
+}
+
+func (s *Store) HGet(key, field string) (string, bool) {
+	return s.getShard(key).HGet(key, field)
+}
+
+func (s *Store) TotalKeys() uint64 {
+	var count uint64
+	for _, shard := range s.shards {
+		shard.mu.RLock()
+		count += uint64(len(shard.data))
+		shard.mu.RUnlock()
+	}
+	return count
+}
+
+</file>
+<file path="internal/store/pubsub.go" language="go">
+package store
+
+import (
+	"sync"
+)
+
+type PubSub struct {
+	mu   sync.RWMutex
+	subs map[string]map[chan string]struct{}
+}
+
+func NewPubSub() *PubSub {
+	return &PubSub{
+		subs: make(map[string]map[chan string]struct{}),
+	}
+}
+
+func (ps *PubSub) Subscribe(channel string) chan string {
+	ps.mu.Lock()
+	defer ps.mu.Unlock()
+
+	if ps.subs[channel] == nil {
+		ps.subs[channel] = make(map[chan string]struct{})
+	}
+
+	ch := make(chan string, 100)
+	ps.subs[channel][ch] = struct{}{}
+	return ch
+}
+
+func (ps *PubSub) Unsubscribe(channel string, ch chan string) {
+	ps.mu.Lock()
+	defer ps.mu.Unlock()
+
+	if subscribers, ok := ps.subs[channel]; ok {
+		delete(subscribers, ch)
+		close(ch)
+		if len(subscribers) == 0 {
+			delete(ps.subs, channel)
+		}
+	}
+}
+
+func (ps *PubSub) Publish(channel, message string) int {
+	ps.mu.RLock()
+	defer ps.mu.RUnlock()
+
+	subscribers, ok := ps.subs[channel]
+	if !ok {
+		return 0
+	}
+
+	count := 0
+	for ch := range subscribers {
+		select {
+		case ch <- message:
+			count++
+		default:
+		}
+	}
+	return count
+}
+
+</file>
+<file path="internal/grpcapi/server.go" language="go">
+// Package grpcapi
+package grpcapi
+
+import (
+	"context"
+	"fmt"
+	"time"
+
+	"redis-clone/internal/aof"
+	"redis-clone/internal/bloomfilter"
+	"redis-clone/internal/store"
+	"redis-clone/proto/pb"
+
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+)
+
+type Server struct {
+	pb.UnimplementedKeyValueStoreServer
+	DB *store.Store
+	BF *bloomfilter.Filter
+}
+
+func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+
+	var cmd string
+	if req.Ttl > 0 {
+		expiresAt := time.Now().UnixNano() + (req.Ttl * int64(time.Millisecond))
+		s.DB.SetWithTTL(req.Key, req.Value, expiresAt)
+		cmd = fmt.Sprintf("SET %s %s %d", req.Key, req.Value, expiresAt)
+	} else {
+		s.DB.Set(req.Key, req.Value)
+		cmd = fmt.Sprintf("SET %s %s", req.Key, req.Value)
+	}
+
+	aof.RecordCommand(cmd)
+
+	return &pb.SetResponse{Success: true}, nil
+}
+
+func (s *Server) Get(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+
+	val, exists := s.DB.Get(req.Key)
+	if !exists {
+		return &pb.GetResponse{Value: "", Exists: false}, status.Error(codes.NotFound, "key not found")
+	}
+	aof.RecordCommand("GET " + req.Key)
+	return &pb.GetResponse{Value: val, Exists: true}, nil
+}
+
+func (s *Server) Delete(ctx context.Context, req *pb.DeleteRequest) (*pb.DeleteResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+
+	deleted := s.DB.Delete(req.Key)
+
+	aof.RecordCommand("DELETE " + req.Key)
+
+	return &pb.DeleteResponse{Success: deleted}, nil
+}
+
+func (s *Server) BFAdd(ctx context.Context, req *pb.BFAddRequest) (*pb.BFAddResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	s.BF.Add(req.Key)
+
+	aof.RecordCommand("BFADD " + req.Key)
+
+	return &pb.BFAddResponse{Success: true}, nil
+}
+
+func (s *Server) BFExists(ctx context.Context, req *pb.BFExistsRequest) (*pb.BFExistsResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	exists := s.BF.Exists(req.Key)
+
+	aof.RecordCommand("BFEXISTS " + req.Key)
+
+	return &pb.BFExistsResponse{Exists: exists}, nil
+}
+
+func (s *Server) BGRewrite(ctx context.Context, req *pb.BGRewriteRequest) (*pb.BGRewriteResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+
+	err := aof.TriggerRewrite(s.DB)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to trigger rewrite: %v", err)
+	}
+
+	return &pb.BGRewriteResponse{Status: "background aof rewrite successful"}, nil
+}
+
+func (s *Server) Hset(ctx context.Context, req *pb.HSetRequest) (*pb.HSetResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	success := s.DB.HSet(req.Key, req.Field, req.Value)
+	if !success {
+		return nil, status.Error(codes.InvalidArgument, "wrong type operation against a key holding the wrong kind of value")
+	}
+	aof.RecordCommand("HSET " + req.Key + " " + req.Field + " " + req.Value)
+
+	return &pb.HSetResponse{Success: true}, nil
+}
+
+func (s *Server) HGet(ctx context.Context, req *pb.HGetRequest) (*pb.HGetResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+
+	val, exists := s.DB.HGet(req.Key, req.Field)
+	if !exists {
+		return &pb.HGetResponse{Value: "", Exists: false}, nil
+	}
+
+	return &pb.HGetResponse{Value: val, Exists: true}, nil
+}
+
+func (s *Server) Info(ctx context.Context, req *pb.InfoRequest) (*pb.InfoResponse, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+
+	return &pb.InfoResponse{
+		Hits:      s.DB.Stats.Hits.Load(),
+		Misses:    s.DB.Stats.Misses.Load(),
+		Evictions: s.DB.Stats.Evictions.Load(),
+		Keys:      s.DB.TotalKeys(),
+	}, nil
+}
+
+func (s *Server) Publish(ctx context.Context, req *pb.PublishRequest) (*pb.PublishResponse, error) {
+	count := s.DB.Broker.Publish(req.Channel, req.Message)
+	return &pb.PublishResponse{SubscribersReached: int32(count)}, nil
+}
+
+func (s *Server) Subscribe(req *pb.SubscribeRequest, stream pb.KeyValueStore_SubscribeServer) error {
+	ch := s.DB.Broker.Subscribe(req.Channel)
+	defer s.DB.Broker.Unsubscribe(req.Channel, ch)
+
+	for {
+		select {
+		case msg := <-ch:
+			err := stream.Send(&pb.SubscribeResponse{
+				Channel: req.Channel,
+				Message: msg,
+			})
+			if err != nil {
+				return err
+			}
+		case <-stream.Context().Done():
+			return nil
+		}
+	}
+}
+
+</file>
+<file path="internal/bloomfilter/bf.go" language="go">
+package bloomfilter
+
+import (
+	"sync"
+
+	"github.com/bits-and-blooms/bloom/v3"
+)
+
+type Filter struct {
+	bf *bloom.BloomFilter
+	mu sync.RWMutex
+}
+
+// n items, p false positive rate for anyone looking at this
+func New(n uint, p float64) *Filter {
+	return &Filter{
+		bf: bloom.NewWithEstimates(n, p),
+	}
+}
+
+func (f *Filter) Add(key string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.bf.AddString(key)
+}
+
+func (f *Filter) Exists(key string) bool {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.bf.TestString(key)
+}
+
+</file>
+<file path="internal/aof/aof.go" language="go">
+// the ffi and implementation module for the multi part aof system
+package aof
+
+/*
+#cgo LDFLAGS: -L../../aof_engine/target/release -laof_engine -lpthread -ldl
+#include <stdlib.h>
+
+extern void write_to_aof(const char* command);
+extern void rotate_aof(const char* tmp_path);
+*/
+import "C"
+
+import (
+	"bufio"
+	"fmt"
+	"log"
+	"os"
+	"path/filepath"
+	"strconv"
+	"strings"
+	"time"
+	"unsafe"
+
+	"redis-clone/internal/store"
+)
+
+var cmdChan = make(chan string, 4096)
+
+func StartWorker() {
+	go func() {
+		for cmd := range cmdChan {
+			c_cmd := C.CString(cmd)
+			C.write_to_aof(c_cmd)
+			C.free(unsafe.Pointer(c_cmd))
+		}
+	}()
+}
+
+func RecordCommand(cmd string) {
+	cmdChan <- cmd
+}
+
+func TriggerRewrite(db *store.Store) error {
+	dir := "/data/appendonlydir"
+
+	tmpPath := filepath.Join(dir, fmt.Sprintf("temp-%d.base.aof", time.Now().UnixNano()))
+
+	f, err := os.Create(tmpPath)
+	if err != nil {
+		return err
+	}
+
+	if err := db.DumpState(f); err != nil {
+		f.Close()
+		return err
+	}
+	f.Close()
+
+	cTmpPath := C.CString(tmpPath)
+	defer C.free(unsafe.Pointer(cTmpPath))
+
+	C.rotate_aof(cTmpPath)
+
+	return nil
+}
+
+func ReplayState(db *store.Store) {
+	dir := "/data/appendonlydir"
+
+	files, err := os.ReadDir(dir)
+	if err != nil {
+		if os.IsNotExist(err) {
+			log.Println("[AOF] no aof file found")
+			return
+		}
+		log.Fatalf("[AOF] failed to read aof: %v", err)
+	}
+
+	for _, file := range files {
+		if !strings.HasSuffix(file.Name(), ".aof") {
+			continue
+		}
+
+		path := filepath.Join(dir, file.Name())
+
+		f, err := os.Open(path)
+		if err != nil {
+			log.Printf("[AOF] Failed to open aof file %s: %v", file.Name(), err)
+			continue
+		}
+		log.Printf("[AOF] Replaying aof file %s", file.Name())
+		scanner := bufio.NewScanner(f)
+
+		for scanner.Scan() {
+			line := scanner.Text()
+
+			parts := strings.SplitN(line, " ", 5)
+
+			if len(parts) == 0 {
+				continue
+			}
+
+			switch parts[0] {
+			case "SET":
+				if len(parts) == 3 {
+					db.Set(parts[1], parts[2])
+				} else if len(parts) == 4 {
+					expiresAt, err := strconv.ParseInt(parts[3], 10, 64)
+					if err == nil {
+						if time.Now().UnixNano() < expiresAt {
+							db.SetWithTTL(parts[1], parts[2], expiresAt)
+						}
+					}
+				}
+			case "DELETE":
+				if len(parts) >= 2 {
+					db.Delete(parts[1])
+				}
+			case "HSET":
+				if len(parts) >= 4 {
+					db.HSet(parts[1], parts[2], parts[3])
+				}
+
+			}
+		}
+	}
+}
+
+</file>
+<file path="cmd/server/main.go" language="go">
+package main
+
+import (
+	"context"
+	"log"
+	"net"
+	"os"
+	"os/signal"
+	"syscall"
+
+	"redis-clone/internal/aof"
+	"redis-clone/internal/bloomfilter"
+	"redis-clone/internal/grpcapi"
+	"redis-clone/internal/store"
+	"redis-clone/proto/pb"
+
+	"google.golang.org/grpc"
+)
+
+func main() {
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+	rdb := store.CreateStore()
+	bf := bloomfilter.New(100000, 0.01)
+
+	aof.ReplayState(rdb)
+	aof.StartWorker()
+
+	lis, err := net.Listen("tcp", ":50051")
+	if err != nil {
+		log.Fatalf("failed to listen on port 50051: %v\n", err)
+	}
+
+	s := grpc.NewServer()
+	grpcServer := &grpcapi.Server{DB: rdb, BF: bf}
+	pb.RegisterKeyValueStoreServer(s, grpcServer)
+
+	go func() {
+		log.Printf("Server is listening on %v\n", lis.Addr())
+
+		if err := s.Serve(lis); err != nil {
+			log.Fatalf("failed to serve: %v\n", err)
+		}
+	}()
+
+	<-ctx.Done()
+	log.Println("\n\n gracefully exiting")
+	s.GracefulStop()
+}
+
+</file>
+<file path="cmd/client/client.go" language="go">
+package main
+
+import (
+	"context"
+	"log"
+	"time"
+
+	"redis-clone/proto/pb"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+)
+
+func main() {
+	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("failed to dial grpc server at port 50051: %v", err)
+	}
+	defer conn.Close()
+
+	c := pb.NewKeyValueStoreClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
+	_, err = c.Set(ctx, &pb.SetRequest{Key: "test", Value: "hello grpc"})
+	if err != nil {
+		log.Fatalf("Set failed: %v\n", err)
+	}
+	log.Println("success")
+
+	getResp, err := c.Get(ctx, &pb.GetRequest{Key: "test"})
+	if err != nil {
+		log.Fatalf("Get failed: %v\n", err)
+	}
+	log.Printf(" GET value: '%s' (exists: %v)\n", getResp.Value, getResp.Exists)
+}
+
+</file>
+<file path="cmd/cli/main.go" language="go">
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"strconv"
+	"strings"
+	"time"
+
+	"redis-clone/proto/pb"
+
+	"github.com/chzyer/readline"
+	"github.com/google/shlex"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+)
+
+func main() {
+	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Printf("failed to dial grpc at port :50051: %v", err)
+		return
+	}
+	defer conn.Close()
+
+	c := pb.NewKeyValueStoreClient(conn)
+	rl, err := readline.New("localhost:500051> ")
+	if err != nil {
+		log.Printf("failed to create new readline ERROR: %v", err)
+		return
+	}
+
+	defer rl.Close()
+	for {
+		fmt.Print("localhost:50051> ")
+		input, err := rl.Readline()
+		if err != nil {
+			break
+		}
+
+		tokens, err := shlex.Split(input)
+		if err != nil {
+			log.Printf("syntax error: %v", err)
+			continue
+		}
+		if len(tokens) == 0 {
+			continue
+		}
+
+		command := strings.ToUpper(tokens[0])
+		args := tokens[1:]
+
+		switch command {
+		case "SET":
+			if len(args) < 2 {
+				log.Println("error USAGE: SET <key> <value> [ttl]")
+				continue
+			}
+
+			var ttl int64
+			if len(args) == 3 {
+				parsedTTL, err := strconv.ParseInt(args[2], 10, 64)
+				if err != nil {
+					log.Println("invalid ttl must of type int (milliseconds)")
+					continue
+				}
+				ttl = parsedTTL
+			}
+
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+
+			_, err = c.Set(ctx, &pb.SetRequest{Key: args[0], Value: args[1], Ttl: ttl})
+			cancel()
+			if err != nil {
+				log.Printf("SET failed: %v\n", err)
+				continue
+			}
+			log.Printf("successfully added Key: %v, Value: %v", args[0], args[1])
+		case "GET":
+			if len(args) < 1 || len(args) > 1 {
+				log.Println("error USAGE: GET <key>")
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+
+			resp, err := c.Get(ctx, &pb.GetRequest{Key: args[0]})
+			cancel()
+			if err != nil {
+				log.Printf("GET failed error: %v", err)
+				continue
+			}
+			log.Printf("%v : %v", args[0], resp)
+		case "DELETE":
+			if len(args) < 1 {
+				log.Print("error USAGE: DELETE <key>")
+				continue
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+
+			resp, err := c.Delete(ctx, &pb.DeleteRequest{Key: args[0]})
+			cancel()
+			if err != nil {
+				log.Printf("DELETE error: %v", err)
+				continue
+			}
+			log.Printf("%v \n", resp)
+		case "BFADD":
+			if len(args) < 1 {
+				log.Println("error USAGE: BFADD <key>")
+				continue
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+
+			resp, err := c.BFAdd(ctx, &pb.BFAddRequest{Key: args[0]})
+			cancel()
+			if err != nil {
+				log.Printf("bloom filter add failed error: %v", err)
+				continue
+			}
+			log.Printf("%v", resp)
+		case "BFEXISTS":
+			if len(args) < 1 {
+				log.Println("invalid USAGE: BFEXISTS <key>")
+				continue
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+
+			resp, err := c.BFExists(ctx, &pb.BFExistsRequest{Key: args[0]})
+			cancel()
+			if err != nil {
+				log.Printf("bloom filter exists cmd error: %v", err)
+				continue
+			}
+			log.Printf("%v", resp)
+		case "BGREWRITEAOF":
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+			resp, err := c.BGRewrite(ctx, &pb.BGRewriteRequest{})
+			cancel()
+			if err != nil {
+				log.Printf("BGREWRITEAOF failed: %v", err)
+				continue
+			}
+			log.Printf("%v", resp.Status)
+		case "CLEAR":
+			log.Printf("\033c")
+		case "HSET":
+			if len(args) < 3 {
+				log.Println("error USAGE: HSET <key> <field> <value>")
+				continue
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+			_, err = c.HSet(ctx, &pb.HSetRequest{Key: args[0], Field: args[1], Value: strings.Join(args[2:], " ")})
+			cancel()
+			if err != nil {
+				log.Printf("HSET failed: %v\n", err)
+				continue
+			}
+			log.Printf("successfully added, hash key: %v field: %v", args[0], args[1])
+		case "HGET":
+			if len(args) != 2 {
+				log.Println("error USAGE: HGET <key> <field>")
+				continue
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+			resp, err := c.HGet(ctx, &pb.HGetRequest{Key: args[0], Field: args[1]})
+			cancel()
+			if err != nil {
+				log.Printf("HGET failed error: %v", err)
+				continue
+			}
+			log.Printf("%v[%v] : %v", args[0], args[1], resp.Value)
+		case "INFO":
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
+			resp, err := c.Info(ctx, &pb.InfoRequest{})
+			cancel()
+			if err != nil {
+				log.Printf("INFO failed: %v\n", err)
+				continue
+			}
+			log.Printf("\n--- Telementry ---\nkeys: %d\nhits: %d\nmisses: %d\nevictions: %d\n----------------",
+				resp.Keys, resp.Hits, resp.Misses, resp.Evictions)
+		case "PUBLISH":
+			if len(args) < 2 {
+				log.Println("error USAGE: PUBLISH <channel> <message>")
+				continue
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+			resp, err := c.Publish(ctx, &pb.PublishRequest{Channel: args[0], Message: strings.Join(args[1:], " ")})
+			cancel()
+			if err != nil {
+				log.Printf("PUBLISH failed: %v\n", err)
+				continue
+			}
+			log.Printf("message published to %d subscribers", resp.SubscribersReached)
+		case "SUBSCRIBE":
+			if len(args) != 1 {
+				log.Println("error USAGE: SUBSCRIBE <channel>")
+				continue
+			}
+
+			stream, err := c.Subscribe(context.Background(), &pb.SubscribeRequest{Channel: args[0]})
+			if err != nil {
+				log.Printf("SUBSCRIBE failed: %v\n", err)
+				continue
+			}
+
+			log.Printf("subed to %s waiting for a response (ctrl+c to exit)", args[0])
+			for {
+				msg, err := stream.Recv()
+				if err != nil {
+					log.Printf("Disconnected from channel: %v", err)
+					break
+				}
+				log.Printf("[%s]: %s", msg.Channel, msg.Message)
+			}
+		default:
+			log.Printf("ERR: unknown command %q", command)
+		}
+
+	}
+}
+
+</file>
+<file path="aof_engine/src/lib.rs" language="rust">
+use std::ffi::CStr;
+use std::fs::{self, File, OpenOptions};
+use std::io::{BufWriter, Write};
+use std::os::raw::c_char;
+use std::sync::{Mutex, OnceLock};
+use std::thread;
+use std::time::{SystemTime, UNIX_EPOCH};
+
+struct Manifest {
+    base_file: Option<String>,
+    active_incr: String,
+}
+
+struct AofEngine {
+    dir: String,
+    manifest: Manifest,
+    buf: BufWriter<File>,
+}
+
+static ENGINE: OnceLock<Mutex<AofEngine>> = OnceLock::new();
+
+fn init_engine() -> &'static Mutex<AofEngine> {
+    ENGINE.get_or_init(|| {
+        let dir = "/data/appendonlydir".to_string();
+        fs::create_dir_all(&dir).unwrap();
+        
+        let initial_incr = format!("{}/appendonly.1.incr.aof", dir);
+        let file = OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(&initial_incr)
+            .unwrap();
+        
+        Mutex::new(AofEngine {
+            dir,
+            manifest: Manifest {
+                base_file: None,
+                active_incr: initial_incr,
+            },
+            buf: BufWriter::with_capacity(8192, file),
+        })
+    })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn write_to_aof(command: *const c_char) {
+    let c_str = unsafe {
+        assert!(!command.is_null());
+        CStr::from_ptr(command)
+    };
+
+    if let Ok(cmd_str) = c_str.to_str() {
+        let engine_mu = init_engine();
+        let mut engine = engine_mu.lock().unwrap();
+        
+        if let Err(e) = writeln!(engine.buf, "{}", cmd_str) {
+            eprintln!("AOF_buf Write Error: {}", e);
+        }
+        
+
+        let _ = engine.buf.flush();
+    }
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn trigger_bgrewriteaof() {
+    let engine_mu = init_engine();
+    let mut engine = engine_mu.lock().unwrap();
+    
+    let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis();
+    let new_incr = format!("{}/appendonly.{}.incr.aof", engine.dir, ts);
+    let new_base = format!("{}/appendonly.{}.base.aof", engine.dir, ts);
+    
+    let _ = engine.buf.flush();
+    
+    let file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&new_incr)
+        .unwrap();
+    
+    engine.buf = BufWriter::with_capacity(8192, file);
+    engine.manifest.active_incr = new_incr.clone();
+    
+    println!("swaped to new INCR file: {}", new_incr);
+
+    thread::spawn(move || {
+        println!("starting new subprocess for rewrite {}", new_base);
+        
+        let mut base_file = File::create(&new_base).unwrap();
+        writeln!(base_file, "placeholder for db state snapshot").unwrap();
+        base_file.sync_data().unwrap();
+        
+        println!("rewrite complete");
+    });
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn rotate_aof(tmp_path: *const c_char) {
+    let c_str = unsafe {
+        assert!(!tmp_path.is_null());
+        CStr::from_ptr(tmp_path)
+    };
+
+    if let Ok(tmp_file_str) = c_str.to_str() {
+        let engine_mu = init_engine();
+        let mut engine = engine_mu.lock().unwrap();
+        
+        let _ = engine.buf.flush();
+        
+        let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis();
+        let new_base = format!("{}/appendonly.{}.base.aof", engine.dir, ts);
+        let new_incr = format!("{}/appendonly.{}.incr.aof", engine.dir, ts);
+        
+        if let Err(e) = fs::rename(tmp_file_str, &new_base) {
+            eprintln!("AOF Rotation Error: Failed to rename temp file: {}", e);
+            return;
+        }
+        
+        let file = OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(&new_incr)
+            .unwrap();
+        
+        engine.buf = BufWriter::with_capacity(8192, file);
+        engine.manifest.base_file = Some(new_base.clone());
+        engine.manifest.active_incr = new_incr.clone();
+        
+        println!("AOF rewrite complete. Base: {} | Incr: {}", new_base, new_incr);
+    }
 }
 
 </file>

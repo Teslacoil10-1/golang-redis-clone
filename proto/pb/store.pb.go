@@ -877,6 +877,198 @@ func (x *InfoResponse) GetKeys() uint64 {
 	return 0
 }
 
+type SubscribeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Channel       string                 `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubscribeRequest) Reset() {
+	*x = SubscribeRequest{}
+	mi := &file_store_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeRequest) ProtoMessage() {}
+
+func (x *SubscribeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeRequest.ProtoReflect.Descriptor instead.
+func (*SubscribeRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *SubscribeRequest) GetChannel() string {
+	if x != nil {
+		return x.Channel
+	}
+	return ""
+}
+
+type SubscribeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Channel       string                 `protobuf:"bytes,2,opt,name=channel,proto3" json:"channel,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubscribeResponse) Reset() {
+	*x = SubscribeResponse{}
+	mi := &file_store_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeResponse) ProtoMessage() {}
+
+func (x *SubscribeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeResponse.ProtoReflect.Descriptor instead.
+func (*SubscribeResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *SubscribeResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *SubscribeResponse) GetChannel() string {
+	if x != nil {
+		return x.Channel
+	}
+	return ""
+}
+
+type PublishRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Channel       string                 `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PublishRequest) Reset() {
+	*x = PublishRequest{}
+	mi := &file_store_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PublishRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PublishRequest) ProtoMessage() {}
+
+func (x *PublishRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PublishRequest.ProtoReflect.Descriptor instead.
+func (*PublishRequest) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *PublishRequest) GetChannel() string {
+	if x != nil {
+		return x.Channel
+	}
+	return ""
+}
+
+func (x *PublishRequest) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type PublishResponse struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	SubscribersReached int32                  `protobuf:"varint,1,opt,name=subscribers_reached,json=subscribersReached,proto3" json:"subscribers_reached,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *PublishResponse) Reset() {
+	*x = PublishResponse{}
+	mi := &file_store_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PublishResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PublishResponse) ProtoMessage() {}
+
+func (x *PublishResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_store_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PublishResponse.ProtoReflect.Descriptor instead.
+func (*PublishResponse) Descriptor() ([]byte, []int) {
+	return file_store_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *PublishResponse) GetSubscribersReached() int32 {
+	if x != nil {
+		return x.SubscribersReached
+	}
+	return 0
+}
+
 var File_store_proto protoreflect.FileDescriptor
 
 const file_store_proto_rawDesc = "" +
@@ -927,7 +1119,17 @@ const file_store_proto_rawDesc = "" +
 	"\x04hits\x18\x01 \x01(\x04R\x04hits\x12\x16\n" +
 	"\x06misses\x18\x02 \x01(\x04R\x06misses\x12\x1c\n" +
 	"\tevictions\x18\x03 \x01(\x04R\tevictions\x12\x12\n" +
-	"\x04keys\x18\x04 \x01(\x04R\x04keys2\xfa\x02\n" +
+	"\x04keys\x18\x04 \x01(\x04R\x04keys\",\n" +
+	"\x10SubscribeRequest\x12\x18\n" +
+	"\achannel\x18\x01 \x01(\tR\achannel\"G\n" +
+	"\x11SubscribeResponse\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\x12\x18\n" +
+	"\achannel\x18\x02 \x01(\tR\achannel\"D\n" +
+	"\x0ePublishRequest\x12\x18\n" +
+	"\achannel\x18\x01 \x01(\tR\achannel\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"B\n" +
+	"\x0fPublishResponse\x12/\n" +
+	"\x13subscribers_reached\x18\x01 \x01(\x05R\x12subscribersReached2\xde\x03\n" +
 	"\rKeyValueStore\x12 \n" +
 	"\x03Set\x12\v.SetRequest\x1a\f.SetResponse\x12 \n" +
 	"\x03Get\x12\v.GetRequest\x1a\f.GetResponse\x12)\n" +
@@ -937,7 +1139,9 @@ const file_store_proto_rawDesc = "" +
 	"\tBGRewrite\x12\x11.BGRewriteRequest\x1a\x12.BGRewriteResponse\x12#\n" +
 	"\x04HSet\x12\f.HSetRequest\x1a\r.HSetResponse\x12#\n" +
 	"\x04HGet\x12\f.HGetRequest\x1a\r.HGetResponse\x12#\n" +
-	"\x04Info\x12\f.InfoRequest\x1a\r.InfoResponseB\x06Z\x04./pbb\x06proto3"
+	"\x04Info\x12\f.InfoRequest\x1a\r.InfoResponse\x124\n" +
+	"\tSubscribe\x12\x11.SubscribeRequest\x1a\x12.SubscribeResponse0\x01\x12,\n" +
+	"\aPublish\x12\x0f.PublishRequest\x1a\x10.PublishResponseB\x06Z\x04./pbb\x06proto3"
 
 var (
 	file_store_proto_rawDescOnce sync.Once
@@ -951,7 +1155,7 @@ func file_store_proto_rawDescGZIP() []byte {
 	return file_store_proto_rawDescData
 }
 
-var file_store_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_store_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_store_proto_goTypes = []any{
 	(*SetRequest)(nil),        // 0: SetRequest
 	(*SetResponse)(nil),       // 1: SetResponse
@@ -971,6 +1175,10 @@ var file_store_proto_goTypes = []any{
 	(*HGetResponse)(nil),      // 15: HGetResponse
 	(*InfoRequest)(nil),       // 16: InfoRequest
 	(*InfoResponse)(nil),      // 17: InfoResponse
+	(*SubscribeRequest)(nil),  // 18: SubscribeRequest
+	(*SubscribeResponse)(nil), // 19: SubscribeResponse
+	(*PublishRequest)(nil),    // 20: PublishRequest
+	(*PublishResponse)(nil),   // 21: PublishResponse
 }
 var file_store_proto_depIdxs = []int32{
 	0,  // 0: KeyValueStore.Set:input_type -> SetRequest
@@ -982,17 +1190,21 @@ var file_store_proto_depIdxs = []int32{
 	12, // 6: KeyValueStore.HSet:input_type -> HSetRequest
 	14, // 7: KeyValueStore.HGet:input_type -> HGetRequest
 	16, // 8: KeyValueStore.Info:input_type -> InfoRequest
-	1,  // 9: KeyValueStore.Set:output_type -> SetResponse
-	3,  // 10: KeyValueStore.Get:output_type -> GetResponse
-	5,  // 11: KeyValueStore.Delete:output_type -> DeleteResponse
-	7,  // 12: KeyValueStore.BFAdd:output_type -> BFAddResponse
-	9,  // 13: KeyValueStore.BFExists:output_type -> BFExistsResponse
-	11, // 14: KeyValueStore.BGRewrite:output_type -> BGRewriteResponse
-	13, // 15: KeyValueStore.HSet:output_type -> HSetResponse
-	15, // 16: KeyValueStore.HGet:output_type -> HGetResponse
-	17, // 17: KeyValueStore.Info:output_type -> InfoResponse
-	9,  // [9:18] is the sub-list for method output_type
-	0,  // [0:9] is the sub-list for method input_type
+	18, // 9: KeyValueStore.Subscribe:input_type -> SubscribeRequest
+	20, // 10: KeyValueStore.Publish:input_type -> PublishRequest
+	1,  // 11: KeyValueStore.Set:output_type -> SetResponse
+	3,  // 12: KeyValueStore.Get:output_type -> GetResponse
+	5,  // 13: KeyValueStore.Delete:output_type -> DeleteResponse
+	7,  // 14: KeyValueStore.BFAdd:output_type -> BFAddResponse
+	9,  // 15: KeyValueStore.BFExists:output_type -> BFExistsResponse
+	11, // 16: KeyValueStore.BGRewrite:output_type -> BGRewriteResponse
+	13, // 17: KeyValueStore.HSet:output_type -> HSetResponse
+	15, // 18: KeyValueStore.HGet:output_type -> HGetResponse
+	17, // 19: KeyValueStore.Info:output_type -> InfoResponse
+	19, // 20: KeyValueStore.Subscribe:output_type -> SubscribeResponse
+	21, // 21: KeyValueStore.Publish:output_type -> PublishResponse
+	11, // [11:22] is the sub-list for method output_type
+	0,  // [0:11] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -1009,7 +1221,7 @@ func file_store_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_store_proto_rawDesc), len(file_store_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   18,
+			NumMessages:   22,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
