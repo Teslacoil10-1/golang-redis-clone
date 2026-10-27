@@ -198,33 +198,33 @@ func main() {
 			resp, err := c.Publish(ctx, &pb.PublishRequest{Channel: args[0], Message: strings.Join(args[1:], " ")})
 			cancel()
 			if err != nil {
-				log.Printf("PUBLISH failed: %v\n", err)
+				log.Printf("%sPUBLISH failed: %v\n%s", logger.Color.Red(), err, logger.Color.Reset())
 				continue
 			}
-			log.Printf("message published to %d subscribers", resp.SubscribersReached)
+			log.Printf("Message published to %d subscribers", resp.SubscribersReached)
 		case "SUBSCRIBE":
 			if len(args) != 1 {
-				log.Println("error USAGE: SUBSCRIBE <channel>")
+				log.Printf("%sError USAGE: SUBSCRIBE <channel>%s", logger.Color.Red(), logger.Color.Reset())
 				continue
 			}
 
 			stream, err := c.Subscribe(context.Background(), &pb.SubscribeRequest{Channel: args[0]})
 			if err != nil {
-				log.Printf("SUBSCRIBE failed: %v\n", err)
+				log.Printf("%sSUBSCRIBE failed: %v\n%s", logger.Color.Red(), err, logger.Color.Reset())
 				continue
 			}
 
-			log.Printf("subed to %s waiting for a response (ctrl+c to exit)", args[0])
+			log.Printf("Subbed to %s waiting for a response (ctrl+c to exit)", args[0])
 			for {
 				msg, err := stream.Recv()
 				if err != nil {
-					log.Printf("Disconnected from channel: %v", err)
+					log.Printf("%sDisconnected from channel: %v%s", logger.Color.Blue(), err, logger.Color.Reset())
 					break
 				}
 				log.Printf("[%s]: %s", msg.Channel, msg.Message)
 			}
 		default:
-			log.Printf("ERR: unknown command %q", command)
+			log.Printf("%sERR: unknown command %q%s", logger.Color.Red(), command, logger.Color.Reset())
 		}
 
 	}
